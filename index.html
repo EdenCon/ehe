@@ -32,6 +32,16 @@
       100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
 
+    /* For floating text without rotation */
+    .no-rotate {
+      animation-name: floatUpNoRotate;
+    }
+
+    @keyframes floatUpNoRotate {
+      0% { transform: translateY(100vh); opacity: 0.7; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
     h1 {
       font-size: 3rem;
       margin-bottom: 20px;
@@ -223,28 +233,25 @@
     }
 
     // Floating emojis and text
-    function createEmoji() {
+    function createEmoji(type = "random") {
       const emoji = document.createElement('div');
       emoji.className = 'emoji';
       emoji.style.left = Math.random() * window.innerWidth + 'px';
       emoji.style.fontSize = (Math.random() * 30 + 20) + 'px';
       emoji.style.fontWeight = 'bold';
 
-      // Randomly pick heart, cat, or text
-      const rand = Math.random();
-      if (rand < 0.4) {
-        emoji.innerText = '❤️';
-      } else if (rand < 0.8) {
-        emoji.innerText = '🐱';
-      } else {
+      if (type === "text") {
+        emoji.classList.add('no-rotate');
         const texts = [
-          'I ❤️ you', 
-          'I Love youuu', 
-          'ILYSM', 
-          'You’re my everythingg', 
+          'I ❤️ you',
+          'I Love youuu',
+          'ILYSM',
+          'You feel like homee, I wouldn’t want anyone else.',
           'Love you always, Samm💕'
         ];
         emoji.innerText = texts[Math.floor(Math.random() * texts.length)];
+      } else {
+        emoji.innerText = Math.random() < 0.5 ? '❤️' : '🐱';
       }
 
       emoji.style.animationDuration = (Math.random() * 10 + 5) + 's';
@@ -252,8 +259,14 @@
       setTimeout(() => emoji.remove(), 15000);
     }
 
-    setInterval(createEmoji, 500);
+    // Hearts & cats (normal)
+    setInterval(() => createEmoji("random"), 500);
+
+    // Text (every 4 seconds, no spin)
+    setInterval(() => createEmoji("text"), 4000);
   </script>
 
 </body>
 </html>
+
+     
