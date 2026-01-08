@@ -17,13 +17,14 @@
       position: relative;
     }
 
-    /* Floating hearts and cats */
+    /* Floating hearts, cats, and text */
     .emoji {
       position: absolute;
       font-size: 1.5rem;
       opacity: 0.7;
       animation: floatUp linear infinite;
       pointer-events: none;
+      white-space: nowrap;
     }
 
     @keyframes floatUp {
@@ -94,8 +95,9 @@
   <div id="reasons-container"></div>
 
   <div id="appreciation" style="display:none;">
-    <p>Babe, I hope you can see how much I truly appreciate you. You make my life brighter every day, and these are just some of the reasons why I love you. There are so many more reasons to love you, and I will keep finding them every single day. You mean the world to me, and I can’t wait to share even more love with you. ❤️🐱</p>
+    <p>Hey bebiiii, I hope you can see how much I truly appreciate youu. You make my life brighter every day, and these are just some of the reasons why I love you. There are so many more reasons to love you, and I'll keep finding them every single day. You mean the world to me, and I can’t wait to share even more love with you. <3🐱</p>
   </div>
+
 
   <script>
     const reasons = [
@@ -196,10 +198,12 @@
       "I love how you make me feel cherished.",
       "I love how you love me even when I don’t love myself.", 
       "I love how you make me feel like I belong with you.",
-      "I love how you are simply you, and that’s enough for me."
+      "I love how you make me blush or kilig awdhauhfja.",
+      "I love how you always check on me.",
+      "I love you because you are YOU, and that’s enough."
     ];
 
-    function showReasons() {
+     function showReasons() {
       const container = document.getElementById('reasons-container');
       container.style.display = 'block';
 
@@ -218,13 +222,31 @@
       container.scrollIntoView({behavior: "smooth"});
     }
 
-    // Floating emojis
+    // Floating emojis and text
     function createEmoji() {
       const emoji = document.createElement('div');
       emoji.className = 'emoji';
       emoji.style.left = Math.random() * window.innerWidth + 'px';
       emoji.style.fontSize = (Math.random() * 30 + 20) + 'px';
-      emoji.innerText = Math.random() > 0.5 ? '❤️' : '🐱';
+      emoji.style.fontWeight = 'bold';
+
+      // Randomly pick heart, cat, or text
+      const rand = Math.random();
+      if (rand < 0.4) {
+        emoji.innerText = '❤️';
+      } else if (rand < 0.8) {
+        emoji.innerText = '🐱';
+      } else {
+        const texts = [
+          'I ❤️ you', 
+          'I Love youuu', 
+          'ILYSM', 
+          'You’re my everythingg', 
+          'Love you always, Samm💕'
+        ];
+        emoji.innerText = texts[Math.floor(Math.random() * texts.length)];
+      }
+
       emoji.style.animationDuration = (Math.random() * 10 + 5) + 's';
       document.body.appendChild(emoji);
       setTimeout(() => emoji.remove(), 15000);
