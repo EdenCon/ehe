@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Letters I Didn't Give, Compiled</title>
+  <title>A Letter I Didn't Give</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -13,6 +13,33 @@
       flex-direction: column;
       align-items: center;
       padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Floating hearts, cats, and text */
+    .emoji {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.7;
+      animation: floatUp linear infinite;
+      pointer-events: none;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0.7; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    .no-rotate {
+      animation-name: floatUpNoRotate;
+    }
+
+    @keyframes floatUpNoRotate {
+      0% { transform: translateY(100vh); opacity: 0.7; }
+      100% { transform: translateY(-10vh); opacity: 0; }
     }
 
     h1 {
@@ -41,31 +68,72 @@
 
     #letter {
       display: none;
-      max-width: 600px;
+      max-width: 700px;
       background: #fff0f6;
       border: 2px solid #ff99c8;
       border-radius: 15px;
       padding: 20px;
       box-shadow: 2px 2px 10px rgba(214, 51, 108, 0.2);
       font-size: 1.2rem;
-      line-height: 1.5;
+      line-height: 1.6;
       margin-top: 20px;
       white-space: pre-wrap;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    strong {
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <h1>The Letters I Didn't Give, Compiled</h1>
+  <h1>A Letter I Didn't Give</h1>
   <button id="view-letter-btn">View Letter</button>
 
   <div id="letter">
-    <!-- Your essay/letter goes here -->
-    <p>Dear babe,</p>
-    <p>These are all the things I wanted to say but didn’t…</p>
-    <p>[Insert your heartfelt letters/essay here]</p>
-    <p>Love always,</p>
-    <p>[Your name]</p>
+    <p>💌 A Letter to My Bebi &lt;3</p>
+
+    <p><strong>My Dearest,</strong></p>
+
+    <p>There are moments when words feel too small to show what the heart truly feels. Still, I want to try to share even a little of how your love has touched me, changed me, and shown me what it means to be cared for so deeply.</p>
+
+    <p>From the very start, your actions spoke louder than words. You didn’t just say you loved me. You showed it in small gestures, in the way you listened when I was unsure, and in the way you stayed when things were quiet. Every act of care, no matter how small, became a part of our story. When I look back now, I see a beautiful story built with patience, kindness, and devotion.</p>
+
+    <p>Your love has changed me in ways I never expected. It is like sunlight breaking through clouds, steady and warm. When I doubted myself, you reminded me of my worth. When I felt fragile, you held me with strength that was gentle and reassuring. When the world seemed distant, your care reminded me that kindness still exists.</p>
+
+    <p>What I love most is how your love is gentle and consistent. You notice small details, remember things I thought you would forget, and give space for my feelings without judgment. This kind of love is rare, and it has taught me that true affection is not just about big gestures, but about choosing every day to care for another person.</p>
+
+    <p>I often think about how your actions touch my daily life. You check in on me, encourage me when I feel uncertain, and celebrate my small victories as if they were huge. All these moments show me that love is not just a feeling, but a practice lived through many small acts of care.</p>
+
+    <p>Your love has made me brave and given me courage. It has softened me, teaching me that being vulnerable is not weak, but a way to connect more deeply. It has inspired me to love you back with the same care and to build a bond that grows stronger each day.</p>
+
+    <p>I want you to know that your love has left a mark on me that will never fade. It has changed the way I see myself, relationships, and the world. You have shown me that love can be both gentle and strong, quiet and life-changing. For this, I am so grateful.</p>
+
+    <p>Even on days when I feel overwhelmed or tired, knowing that you are there makes everything easier. Your presence alone brings comfort, like a warm blanket on a cold day. It is in these moments that I realize how lucky I am to have someone who truly sees me, understands me, and accepts me completely.</p>
+
+    <p>I love how we can laugh together over silly things, even when nothing else seems funny. Those moments remind me that love is not always serious, that joy is part of caring deeply for each other. Your laughter is a melody I want to carry with me always.</p>
+
+    <p>I love the way you inspire me to be better without making me feel pressured. You show me possibilities, encourage my dreams, and believe in me even when I doubt myself. That kind of belief is a gift I will never take for granted.</p>
+
+    <p>Sometimes I think about how our small routines, our shared moments, and even our quiet silences are filled with meaning. Every conversation, every text, every glance carries love. You have taught me that love is woven into the little things we do for each other every day.</p>
+
+    <p>I am thankful for how patient you are with me. You never rush me, never demand more than I can give, and always meet me where I am. That patience has helped me grow and has made me realize that love is also about understanding and giving space.</p>
+
+    <p>I love how we dream together, plan together, and imagine a future that feels warm and safe. With you, even the simplest dreams feel exciting because we will face them together. Your partnership makes life feel brighter and more meaningful.</p>
+
+    <p>There are times when I just watch you and feel amazed that someone like you exists in my life. Your kindness, your humor, your care, your love—it all feels like a treasure I never want to lose. I am constantly reminded that the heart can grow in ways I never thought possible.</p>
+
+    <p>I also love how you make me feel at home. Not just in a place, but in your heart. You make me feel safe, valued, and cherished in a way that I will carry with me forever. That feeling is priceless, and it is because of you.</p>
+
+    <p>This letter is not just to tell you how much I love you. It is to show how much you have affected me. You have taught me that love is shown in actions, not just words. You have reminded me that true care lasts and that being loved deeply is one of life’s greatest gifts.</p>
+
+    <p><strong>Thank you, Sam, for being yourself, for caring so deeply, and for loving me in ways I will always remember.</strong></p>
+
+    <p>Love,<br>Eden</p>
   </div>
 
   <script>
@@ -74,9 +142,41 @@
 
     btn.addEventListener('click', () => {
       letter.style.display = 'block';
-      btn.style.display = 'none'; // hide button after click
+      btn.style.display = 'none';
       letter.scrollIntoView({behavior: "smooth"});
     });
+
+    // Floating emojis and text
+    function createEmoji(type = "random") {
+      const emoji = document.createElement('div');
+      emoji.className = 'emoji';
+      emoji.style.left = Math.random() * window.innerWidth + 'px';
+      emoji.style.fontSize = (Math.random() * 30 + 20) + 'px';
+
+      if (type === "text") {
+        emoji.classList.add('no-rotate');
+        const texts = [
+          'I ❤️ you',
+          'I Love youuu',
+          'ILYSM',
+          'You feel like homee, I wouldn’t want anyone else.',
+          'Love you always, Samm💕'
+        ];
+        emoji.innerText = texts[Math.floor(Math.random() * texts.length)];
+      } else {
+        emoji.innerText = Math.random() < 0.5 ? '❤️' : '🐱';
+      }
+
+      emoji.style.animationDuration = (Math.random() * 10 + 5) + 's';
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 15000);
+    }
+
+    // Hearts & cats (normal)
+    setInterval(() => createEmoji("random"), 500);
+
+    // Text (every 4 seconds, no spin)
+    setInterval(() => createEmoji("text"), 4000);
   </script>
 
 </body>
