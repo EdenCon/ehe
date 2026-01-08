@@ -13,6 +13,22 @@
       flex-direction: column;
       align-items: center;
       padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Floating hearts and cats */
+    .emoji {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.7;
+      animation: floatUp linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0.7; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
 
     h1 {
@@ -26,27 +42,60 @@
       font-weight: bold;
     }
 
-    #reasons {
+    button {
+      background-color: #d6336c;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: #ff3385;
+    }
+
+    #reasons-container {
+      display: none;
+      max-width: 600px;
+      width: 100%;
       background: #fff0f6;
       border: 2px solid #ff99c8;
       border-radius: 15px;
       padding: 20px;
-      max-width: 600px;
-      font-size: 1.2rem;
       box-shadow: 2px 2px 10px rgba(214, 51, 108, 0.2);
+      max-height: 60vh;
       overflow-y: auto;
-      max-height: 80vh;
+      margin-bottom: 20px;
     }
 
     p {
       margin-bottom: 10px;
+    }
+
+    #appreciation {
+      max-width: 600px;
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
   <h1>Things I Love About <span>You</span> ❤️</h1>
-  <div id="reasons"></div>
+  <button onclick="showReasons()">View Reasons</button>
+
+  <div id="reasons-container"></div>
+
+  <div id="appreciation" style="display:none;">
+    <p>Babe, I hope you can see how much I truly appreciate you. You make my life brighter every day, and these are just some of the reasons why I love you. There are so many more reasons to love you, and I will keep finding them every single day. You mean the world to me, and I can’t wait to share even more love with you. ❤️🐱</p>
+  </div>
 
   <script>
     const reasons = [
@@ -150,12 +199,38 @@
       "I love how you are simply you, and that’s enough for me."
     ];
 
-     const container = document.getElementById('reasons');
-    reasons.forEach((reason, index) => {
-      const p = document.createElement('p');
-      p.innerText = `${index + 1}. ${reason}`;
-      container.appendChild(p);
-    });
+    function showReasons() {
+      const container = document.getElementById('reasons-container');
+      container.style.display = 'block';
+
+      const appreciation = document.getElementById('appreciation');
+      appreciation.style.display = 'block';
+
+      container.innerHTML = ''; // clear first
+
+      reasons.forEach((reason, index) => {
+        const p = document.createElement('p');
+        p.innerHTML = `${index + 1}. ${reason.replace(/you/gi, '<strong>you</strong>')}`;
+        container.appendChild(p);
+      });
+
+      // Scroll to the reasons
+      container.scrollIntoView({behavior: "smooth"});
+    }
+
+    // Floating emojis
+    function createEmoji() {
+      const emoji = document.createElement('div');
+      emoji.className = 'emoji';
+      emoji.style.left = Math.random() * window.innerWidth + 'px';
+      emoji.style.fontSize = (Math.random() * 30 + 20) + 'px';
+      emoji.innerText = Math.random() > 0.5 ? '❤️' : '🐱';
+      emoji.style.animationDuration = (Math.random() * 10 + 5) + 's';
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 15000);
+    }
+
+    setInterval(createEmoji, 500);
   </script>
 
 </body>
