@@ -32,7 +32,6 @@
       100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
 
-    /* For floating text without rotation */
     .no-rotate {
       animation-name: floatUpNoRotate;
     }
@@ -223,11 +222,17 @@
 
       reasons.forEach((reason, index) => {
         const p = document.createElement('p');
-        p.innerHTML = `${index + 1}. ${reason.replace(/you/gi, '<strong>you</strong>')}`;
+
+        // Add "Done Reading" button to the last reason
+        if (index === reasons.length - 1) {
+          p.innerHTML = `${index + 1}. <strong>${reason.replace(/you/gi, '<strong>you</strong>')}</strong> <button onclick="window.location.href='letters.html'">Done Reading</button>`;
+        } else {
+          p.innerHTML = `${index + 1}. ${reason.replace(/you/gi, '<strong>you</strong>')}`;
+        }
+
         container.appendChild(p);
       });
 
-      // Scroll to the reasons
       container.scrollIntoView({behavior: "smooth"});
     }
 
@@ -258,10 +263,7 @@
       setTimeout(() => emoji.remove(), 15000);
     }
 
-    // Hearts & cats (normal)
     setInterval(() => createEmoji("random"), 500);
-
-    // Text (every 4 seconds, no spin)
     setInterval(() => createEmoji("text"), 4000);
   </script>
 
