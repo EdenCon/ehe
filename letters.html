@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Letters I Didn't Give, Compiled</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #ffe6f0;
+      color: #d6336c;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      text-shadow: 1px 1px 2px #ff99c8;
+    }
+
+    button {
+      background-color: #d6336c;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background-color: #ff3385;
+    }
+
+    #letter {
+      display: none;
+      max-width: 600px;
+      background: #fff0f6;
+      border: 2px solid #ff99c8;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 2px 2px 10px rgba(214, 51, 108, 0.2);
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-top: 20px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>The Letters I Didn't Give, Compiled</h1>
+  <button id="view-letter-btn">View Letter</button>
+
+  <div id="letter">
+    <!-- Your essay/letter goes here -->
+    <p>Dear babe,</p>
+    <p>These are all the things I wanted to say but didn’t…</p>
+    <p>[Insert your heartfelt letters/essay here]</p>
+    <p>Love always,</p>
+    <p>[Your name]</p>
+  </div>
+
+  <script>
+    const btn = document.getElementById('view-letter-btn');
+    const letter = document.getElementById('letter');
+
+    btn.addEventListener('click', () => {
+      letter.style.display = 'block';
+      btn.style.display = 'none'; // hide button after click
+      letter.scrollIntoView({behavior: "smooth"});
+    });
+  </script>
+
+</body>
+</html>
