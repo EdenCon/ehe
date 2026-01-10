@@ -46,8 +46,8 @@
 
     .float {
       position: absolute;
-      font-size: 24px;
-      opacity: 0.18;
+      font-size: 20px;
+      opacity: 0.15;
       animation: floatUp linear infinite;
     }
 
@@ -103,6 +103,7 @@
       white-space: pre-wrap;
       max-height: 60vh;
       overflow-y: auto;
+      position: relative;
     }
 
     .nav {
@@ -128,6 +129,7 @@
       background: #ffb6c1;
       font-size: 1em;
       cursor: pointer;
+      display: block;
     }
 
     .poems-arrow {
@@ -147,16 +149,8 @@
 
 <body>
 
-<!-- 🌸 FLOATING EMOJIS BACKGROUND -->
-<div class="floating-bg">
-  <div class="float" style="left: 10%; animation-duration: 18s;">🐱</div>
-  <div class="float" style="left: 20%; animation-duration: 22s;">💖</div>
-  <div class="float" style="left: 35%; animation-duration: 20s;">🐾</div>
-  <div class="float" style="left: 50%; animation-duration: 26s;">💗</div>
-  <div class="float" style="left: 65%; animation-duration: 24s;">🐱</div>
-  <div class="float" style="left: 78%; animation-duration: 21s;">💞</div>
-  <div class="float" style="left: 90%; animation-duration: 28s;">🐾</div>
-</div>
+<!-- 🌸 FLOATING EMOJIS & TEXT BACKGROUND -->
+<div class="floating-bg" id="floatingBg"></div>
 
 <header>
   <h1>Letters I Didn't Give, Compiled</h1>
@@ -174,8 +168,8 @@
   </button>
 
   <div class="nav">
-    <button onclick="prevLetter()">← Previous</button>
-    <button onclick="nextLetter()">Next →</button>
+    <button id="prevBtn" onclick="prevLetter()">← Previous</button>
+    <div></div>
   </div>
 
 </div>
@@ -1045,6 +1039,7 @@ I love you for who you are, for how you show up, and for the quiet ways you care
     document.getElementById("lettersSection").style.display = "block";
     buildBubbles();
     showLetter(0);
+    generateFloating();
   }
 
   function buildBubbles() {
@@ -1063,16 +1058,19 @@ I love you for who you are, for how you show up, and for the quiet ways you care
     current = index;
     const box = document.getElementById("letterBox");
     const btn = document.getElementById("nextLetterBtn");
+    const prevBtn = document.getElementById("prevBtn");
 
     box.innerText = letters[index];
     box.scrollTop = 0;
     btn.style.display = "none";
 
+    prevBtn.disabled = (current === 0);
+
     box.onscroll = () => {
-      if (box.scrollTop + box.clientHeight >= box.scrollHeight - 10) {
-        if (current < letters.length - 1) {
-          btn.style.display = "block";
-        }
+      if (box.scrollTop + box.clientHeight >= box.scrollHeight - 10 && current < letters.length - 1) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
       }
     };
   }
@@ -1091,6 +1089,30 @@ I love you for who you are, for how you show up, and for the quiet ways you care
 
   function goToPoems() {
     window.location.href = "poems.html";
+  }
+
+  // ===== FLOATING BACKGROUND =====
+  function generateFloating() {
+    const bg = document.getElementById("floatingBg");
+    const emojis = [];
+    // 550 cats 🐱
+    for (let i = 0; i < 550; i++) emojis.push('🐱');
+    // 250 hearts 💖
+    for (let i = 0; i < 250; i++) emojis.push('💖');
+    // Text
+    emojis.push("ILYSM", "ILY ALWAYS, SAM", "LUV YOUUU");
+
+    emojis.forEach(e => {
+      const div = document.createElement("div");
+      div.className = "float";
+      div.innerText = e;
+      div.style.left = Math.random() * 100 + "%";
+      div.style.fontSize = (10 + Math.random() * 20) + "px";
+      div.style.opacity = 0.12 + Math.random() * 0.1;
+      div.style.animationDuration = 15 + Math.random() * 20 + "s";
+      div.style.top = Math.random() * 100 + "vh";
+      bg.appendChild(div);
+    });
   }
 </script>
 
