@@ -17,136 +17,59 @@
       position: relative;
     }
 
-    /* 🐱 CAT BACKGROUND (NEW) */
-    .cat-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
+   <!-- 🐱 CAT BACKGROUND CONTAINER (NEW) -->
+<div class="cat-bg" id="catBg"></div>
+
+<style>
+  .cat-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cat-bg .cat {
+    position: absolute;
+    bottom: 0; /* start at bottom */
+    opacity: 0; /* start invisible */
+    animation: floatCat linear infinite;
+  }
+
+  @keyframes floatCat {
+    0% {
+      transform: translateY(0);
+      opacity: 0; /* fade in */
     }
-
-    .cat-bg .cat {
-      position: absolute;
-      opacity: 0.25;
-      animation: floatCat linear infinite;
+    10% {
+      opacity: 0.15;
     }
-
-    @keyframes floatCat {
-      from {
-        transform: translateY(100vh);
-      }
-      to {
-        transform: translateY(-120vh);
-      }
+    100% {
+      transform: translateY(-120vh); /* float to top */
+      opacity: 0;
     }
+  }
+</style>
 
-    /* Floating hearts, cats, and text */
-    .emoji {
-      position: absolute;
-      font-size: 1.5rem;
-      opacity: 0.7;
-      animation: floatUp linear infinite;
-      pointer-events: none;
-      white-space: nowrap;
-      z-index: 1;
-    }
+<script>
+  const catBg = document.getElementById("catBg");
 
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0.7; }
-      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-    }
+  for (let i = 0; i < 200; i++) {
+    const cat = document.createElement("div");
+    cat.className = "cat";
+    cat.textContent = "🐱";
 
-    .no-rotate {
-      animation-name: floatUpNoRotate;
-    }
+    cat.style.left = Math.random() * 100 + "vw";
+    cat.style.fontSize = 16 + Math.random() * 30 + "px";
+    cat.style.animationDuration = 15 + Math.random() * 25 + "s";
+    cat.style.animationDelay = Math.random() * 20 + "s";
 
-    @keyframes floatUpNoRotate {
-      0% { transform: translateY(100vh); opacity: 0.7; }
-      100% { transform: translateY(-10vh); opacity: 0; }
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      text-shadow: 1px 1px 2px #ff99c8;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    h1 span {
-      font-weight: bold;
-    }
-
-    button {
-      background-color: #d6336c;
-      color: #fff;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 2;
-    }
-
-    button:hover {
-      transform: scale(1.1);
-      background-color: #ff3385;
-    }
-
-    #reasons-container {
-      display: none;
-      max-width: 600px;
-      width: 100%;
-      background: #fff0f6;
-      border: 2px solid #ff99c8;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 2px 2px 10px rgba(214, 51, 108, 0.2);
-      max-height: 60vh;
-      overflow-y: auto;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 2;
-    }
-
-    p {
-      margin-bottom: 10px;
-    }
-
-    #appreciation {
-      max-width: 600px;
-      text-align: center;
-      font-size: 1.2rem;
-      line-height: 1.5;
-      margin-top: 10px;
-      position: relative;
-      z-index: 2;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- 🐱 CAT BACKGROUND CONTAINER (NEW) -->
-  <div class="cat-bg" id="catBg"></div>
-
-  <h1>Things I Love About <span>You</span> ❤️</h1>
-  <button onclick="showReasons()">View Reasons</button>
-
-  <div id="reasons-container"></div>
-
-  <div id="appreciation" style="display:none;">
-    <p>Hey bebiiii, I hope you can see how much I truly appreciate youu. You make my life brighter every day, and these are just some of the reasons why I love you. There are so many more reasons to love you, and I'll keep finding them every single day. You mean the world to me, and I can’t wait to share even more love with you. <3🐱</p>
-  </div>
-
-  <script>
+    catBg.appendChild(cat);
+  }
+</script>
     const reasons = [
       "I love your smile and how it brightens my dayyy.",
       "I love the way you make me laugh even when I'm sad. 😛",
