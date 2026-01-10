@@ -12,6 +12,7 @@
       background: linear-gradient(135deg, #f7e9f0, #e8f0ff);
       color: #333;
       overflow-x: hidden;
+      position: relative;
     }
 
     header {
@@ -52,12 +53,8 @@
     }
 
     @keyframes floatUp {
-      from {
-        transform: translateY(110vh) translateX(0);
-      }
-      to {
-        transform: translateY(-20vh) translateX(30px);
-      }
+      from { transform: translateY(110vh) translateX(0); }
+      to { transform: translateY(-20vh) translateX(30px); }
     }
 
     /* ===== CONTENT ===== */
@@ -104,32 +101,35 @@
       max-height: 60vh;
       overflow-y: auto;
       position: relative;
+      margin-bottom: 100px; /* space for buttons */
     }
 
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 25px;
-    }
-
-    .nav button {
-      padding: 10px 18px;
-      border-radius: 20px;
+    /* ===== FIXED NAV BUTTONS ===== */
+    #prevBtn, #nextLetterBtn {
+      position: fixed;
+      bottom: 30px;
+      padding: 12px 26px;
+      border-radius: 25px;
       border: none;
+      font-size: 1em;
       cursor: pointer;
+      z-index: 3;
+    }
+
+    #prevBtn {
+      left: 30px;
       background: #dcdcff;
     }
 
     #nextLetterBtn {
-      display: none;
-      margin: 30px auto 0;
-      padding: 12px 26px;
-      border-radius: 25px;
-      border: none;
+      right: 30px;
       background: #ffb6c1;
-      font-size: 1em;
-      cursor: pointer;
-      display: block;
+      display: none;
+    }
+
+    #prevBtn:disabled {
+      opacity: 0.5;
+      cursor: default;
     }
 
     .poems-arrow {
@@ -163,14 +163,8 @@
 
   <div class="letter-box" id="letterBox"></div>
 
-  <button id="nextLetterBtn" onclick="nextLetter()">
-    View Next Letter →
-  </button>
-
-  <div class="nav">
-    <button id="prevBtn" onclick="prevLetter()">← Previous</button>
-    <div></div>
-  </div>
+  <button id="prevBtn" onclick="prevLetter()">← Previous</button>
+  <button id="nextLetterBtn" onclick="nextLetter()">Next →</button>
 
 </div>
 
@@ -1033,7 +1027,7 @@ This letter is a summary of everything I feel. It is built from moments, choices
 I love you for who you are, for how you show up, and for the quiet ways you care. I love you for the moments we share, the little things I notice, and the bond we continue to build. I choose you, today, tomorrow, and for all the years we are blessed to share together :3.`
   ];
 
-  let current = 0;
+    let current = 0;
 
   function openLetters() {
     document.getElementById("lettersSection").style.display = "block";
@@ -1057,20 +1051,22 @@ I love you for who you are, for how you show up, and for the quiet ways you care
   function showLetter(index) {
     current = index;
     const box = document.getElementById("letterBox");
-    const btn = document.getElementById("nextLetterBtn");
+    const nextBtn = document.getElementById("nextLetterBtn");
     const prevBtn = document.getElementById("prevBtn");
 
     box.innerText = letters[index];
     box.scrollTop = 0;
-    btn.style.display = "none";
+    nextBtn.style.display = "none";
 
+    // Prev button always visible but disabled on first letter
     prevBtn.disabled = (current === 0);
 
+    // Show next button only when scrolled to bottom & not last letter
     box.onscroll = () => {
       if (box.scrollTop + box.clientHeight >= box.scrollHeight - 10 && current < letters.length - 1) {
-        btn.style.display = "block";
+        nextBtn.style.display = "block";
       } else {
-        btn.style.display = "none";
+        nextBtn.style.display = "none";
       }
     };
   }
@@ -1095,20 +1091,17 @@ I love you for who you are, for how you show up, and for the quiet ways you care
   function generateFloating() {
     const bg = document.getElementById("floatingBg");
     const emojis = [];
-    // 550 cats 🐱
-    for (let i = 0; i < 550; i++) emojis.push('🐱');
-    // 250 hearts 💖
-    for (let i = 0; i < 250; i++) emojis.push('💖');
-    // Text
-    emojis.push("ILYSM", "ILY ALWAYS, SAM", "LUV YOUUU");
+    for (let i = 0; i < 20; i++) emojis.push('🐱'); // 20 cute cats
+    for (let i = 0; i < 10; i++) emojis.push('💖'); // hearts
+    emojis.push("MWAA");
 
     emojis.forEach(e => {
       const div = document.createElement("div");
       div.className = "float";
       div.innerText = e;
       div.style.left = Math.random() * 100 + "%";
-      div.style.fontSize = (10 + Math.random() * 20) + "px";
-      div.style.opacity = 0.12 + Math.random() * 0.1;
+      div.style.fontSize = (10 + Math.random() * 30) + "px";
+      div.style.opacity = 0.12 + Math.random() * 0.2;
       div.style.animationDuration = 15 + Math.random() * 20 + "s";
       div.style.top = Math.random() * 100 + "vh";
       bg.appendChild(div);
