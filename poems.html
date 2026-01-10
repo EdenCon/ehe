@@ -25,7 +25,7 @@
       max-width: 900px;
       margin: 0 auto;
       padding: 20px;
-      text-align: center; /* center poem list section titles */
+      text-align: center;
     }
 
     .poem-section h2 {
@@ -38,7 +38,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 15px;
-      justify-items: center; /* center the bubbles/grid items */
+      justify-items: center;
     }
 
     .poem-list li {
@@ -48,7 +48,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: transform 0.2s;
-      text-align: center; /* center text in the list item */
+      text-align: center;
       max-width: 200px;
     }
 
@@ -72,7 +72,7 @@
       overflow-y: auto;
       display: none;
       z-index: 10;
-      text-align: center; /* center title and content */
+      text-align: center;
     }
 
     .poem-box h3 {
@@ -83,7 +83,7 @@
     .poem-box pre {
       white-space: pre-wrap;
       word-wrap: break-word;
-      text-align: center; /* center content */
+      text-align: center;
       font-family: 'Georgia', serif;
     }
 
@@ -102,7 +102,6 @@
       line-height: 1;
     }
 
-    /* Overlay for modal */
     .overlay {
       position: fixed;
       inset: 0;
@@ -152,7 +151,43 @@
   ];
 
   const englishPoems = [
-    { title: "Poem 1", content: "Content of Poem 1..." },
+    {
+      title: "Home in Your Smile",
+      content: `Every moment with you feels like home,
+A place where my heart is never alone.
+Your laughter lingers, soft and clear,
+And every whisper draws me near.
+
+The stars may fall, the night may fade,
+But your warmth is a light that will never jade.
+Your hand in mine, a perfect fit,
+A silent promise, a gentle knit.
+
+I watch your eyes, deep oceans of calm,
+Every glance from you feels like a balm.
+The world spins fast, yet here I stay,
+Anchored to you, come what may.
+
+Each word you speak, a melody sweet,
+Each heartbeat of yours makes mine complete.
+In storms or sunshine, in joy or fear,
+My home is your heart, always near.
+
+I’ll hold you close, through all life’s miles,
+Finding eternity in your soft smiles.
+Time cannot steal what we have grown,
+For every moment with you feels like home.
+
+With every hug, the world feels right,
+Your love is my shelter in darkest night.
+Even when silence surrounds the air,
+I feel your heartbeat always there.
+
+No treasure compares, no gold could shine,
+Like the quiet magic of calling you mine.
+Forever isn’t long enough to show,
+How much my heart loves you, you know.`
+    },
     { title: "Poem 2", content: "Content of Poem 2..." },
     { title: "Poem 3", content: "Content of Poem 3..." },
     { title: "Poem 4", content: "Content of Poem 4..." },
@@ -171,7 +206,7 @@
 
   function buildPoemList(poems, containerId) {
     const list = document.getElementById(containerId);
-    poems.forEach((poem) => {
+    poems.forEach(poem => {
       const li = document.createElement("li");
       li.innerText = poem.title;
       li.onclick = () => openPoem(poem);
@@ -193,7 +228,6 @@
 
   overlay.onclick = closePoem;
 
-  // Build both lists
   buildPoemList(tagalogPoems, "tagalogList");
   buildPoemList(englishPoems, "englishList");
 </script>
