@@ -1,1 +1,294 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Letters I Didn't Give, Compiled</title>
+
+  <style>
+    /* ===== BASE ===== */
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #f7e9f0, #e8f0ff);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    header button {
+      padding: 10px 22px;
+      border: none;
+      border-radius: 25px;
+      background: #ffb6c1;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    /* ===== FLOATING BACKGROUND ===== */
+    .floating-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .float {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.18;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(110vh) translateX(0);
+      }
+      to {
+        transform: translateY(-20vh) translateX(30px);
+      }
+    }
+
+    /* ===== CONTENT ===== */
+    .container {
+      display: none;
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .bubble-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .bubble {
+      background: #ffffff;
+      border-radius: 50%;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+
+    .bubble:hover {
+      transform: scale(1.08);
+    }
+
+    .letter-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      line-height: 1.7;
+      white-space: pre-wrap;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    .nav button {
+      padding: 10px 18px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      background: #dcdcff;
+    }
+
+    #nextLetterBtn {
+      display: none;
+      margin: 30px auto 0;
+      padding: 12px 26px;
+      border-radius: 25px;
+      border: none;
+      background: #ffb6c1;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .poems-arrow {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      font-size: 1.1em;
+      background: #ffd1dc;
+      padding: 12px 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 🌸 FLOATING EMOJIS BACKGROUND -->
+<div class="floating-bg">
+  <div class="float" style="left: 10%; animation-duration: 18s;">🐱</div>
+  <div class="float" style="left: 20%; animation-duration: 22s;">💖</div>
+  <div class="float" style="left: 35%; animation-duration: 20s;">🐾</div>
+  <div class="float" style="left: 50%; animation-duration: 26s;">💗</div>
+  <div class="float" style="left: 65%; animation-duration: 24s;">🐱</div>
+  <div class="float" style="left: 78%; animation-duration: 21s;">💞</div>
+  <div class="float" style="left: 90%; animation-duration: 28s;">🐾</div>
+</div>
+
+<header>
+  <h1>Letters I Didn't Give, Compiled</h1>
+  <button onclick="openLetters()">View Letters</button>
+</header>
+
+<div class="container" id="lettersSection">
+
+  <div class="bubble-grid" id="bubbleGrid"></div>
+
+  <div class="letter-box" id="letterBox"></div>
+
+  <button id="nextLetterBtn" onclick="nextLetter()">
+    View Next Letter →
+  </button>
+
+  <div class="nav">
+    <button onclick="prevLetter()">← Previous</button>
+    <button onclick="nextLetter()">Next →</button>
+  </div>
+
+</div>
+
+<div class="poems-arrow" onclick="goToPoems()">→ View Poems</div>
+
+<script>
+  const letters = [
+`Letter #1
+The day we met and my first impressions o((>ω< ))o
+
+I still remember how we first met, and honestly, it’s funny looking back at it now (not in a bad way, omkiee?).
+
+During EDGE, I didn’t like you at first. (At first lang pod, karon kay more than like naman, HAHA.) Mostly because my friend didn’t like you, and I just went along with that. I never thought we’d end up being friends, ESPECIALLYY not the way we are now. Back then, you were just someone I didn’t pay much attention to. 🤯
+
+Then the first week of classes happened. Ma’am Pat changed the seating arrangement, and I was placed on the 3rd row, 2nd column from the right. You were on my left. At first, I was ulaw to talk to you. I didn’t know what to say, and I wasn’t even sure I wanted to talk. My first impression of you was that you were smart and loud, please don’t get offended, first impression lang gyud nako back then.
+
+But then you started talking to me. And we talked a lot, like, ALLAT. OMD AHAHA. Without me realizing it, you became my first friend in Pisay. You were there when I didn’t understand the lessons, when I doubted myself, and when I needed someone to explain things patiently. You never made me feel stupid or small. You just helped. :3
+
+That’s when my impression of you started to change. I began to see you as kind, humble, and genuine. Good thoughts about you slowly replaced the old ones jdasdafeih. And somewhere along the way, very gradually, I started catching feelings. I didn’t expect it, but it happened. 🤯😛
+
+It wasn’t anything grand or dramatic. It was your personality. The way you made me feel comfortable. The way I could tell you things without fear of being judged. You became someone I felt safe with, someone I trusted, someone who made things feel lighter just by being there. And honestly, we’re so ka-vibeee, like on the same freakuency, (we were both a bit freaky back then, HAHA.) being around you just clicks, everything fits perfectly. :>
+
+And now, thinking about how it all started, I can’t help but smile. From disliking you, to sitting beside you, to calling you my first friend, and then something more. I guess life really has its own way of surprising us. 😸😺`,
+ `Letter #2
+ Why I Chose You
+
+I didn’t want to be in a relationship ever again. Not for a short while, not for a long while, not casually, and not seriously. I had been through experiences before that left me drained and hesitant. I was afraid that if I let myself love again, I might end up hurting myself, repeating past mistakes that I had struggled to move on from.
+
+Yet, when I met you, something changed, yie haha. There was a subtle pull I couldn’t ignore, a feeling I hadn’t experienced in a long time. I didn’t immediately understand it, and perhaps I still can’t fully explain it, but it was strong enough to make me notice you in a way I hadn’t noticed anyone else.
+
+At first, it was small things that caught my attention. The way you carried yourself, your natural confidence, and the way you engaged with others around you. Even your laughter had a way of drawing me in. Something about your energy felt genuine, comforting, and unexpectedly uplifting. :3
+
+I soon realized that it was not just your presence, but the way you made me feel comfortable. I could be myself around you, without masks, without pretense. I could share my thoughts, worries, and even my insecurities, and I never felt judged. That sense of emotional safety is really rare, and it made me begin to trust you in ways I had not trusted anyone in a long time.
+
+Your personality is unique and multifaceted. You're at once kind and thoughtful, funny and expressive, serious and reflective. Being around you, I began to appreciate these qualities and how naturally they fit together. It wasn't overwhelming, nor was it flashy, it was simply genuine, and it resonated with me deeplyyy.
+
+Another reason I chose you is the connection we share. It’s hard to describe, but it's as if we operate on the same wavelength. We understand each other without much effort, sometimes even without words. That sense of alignment, of shared perspective, is INCREDIBLY rare, and it made me feel that being with you would be effortless in the most meaningful way.
+
+There is also the thoughtfulness you show in the little things. The way you notice small details about people, the way you offer help without expecting anything in return, and the way you respond thoughtfully to what I say; all of this revealed to me a depth of character that I deeply admire.
+
+I cannot overstate how safe I feel with you, both emotionally and mentally. I can express my thoughts freely, my doubts, and even my irrational fears, and still feel accepted. That kind of acceptance is not something I give lightly, and it speaks volumes about your empathy and understanding. 😸
+
+Your presence has inspired me to be more patient, more reflective, and more considerate, not because you demand it, but simply because your example encourages it. You have this subtle influence that motivates me to be a better version of myself, without pressure or expectation.
+
+It is also the combination of all these qualities that makes you unforgettable. Your kindness, your humor, your attentiveness, your reliability, and the way you make everything feel lighter when you're around; all of these contribute to why I chose you :3.
+
+Choosing you was not about a single moment, a single gesture, or a single quality. It was about the sum of everything I have observed, felt, and appreciated over time. It is about how your personality, your energy, and your presence align with who I am and what I value in a connection.
+
+I chose you because being with you feels natural. It feels like an alignment of paths that were meant to intersect, something that I had not expected to find again. It's a choice that's both reasoned and instinctive, thoughtful yet undeniable.
+
+I chose you because, despite my fears and hesitations, my heart recognized something in you that it hadn't recognized before. A sense of safety, comfort, and belonging that I had been longing for a long time without realizing it.
+
+Ultimately, I chose you because you make life feel lighter and brighter simply by being yourself :). You have a way of making the ordinary extraordinary, the mundane memorable, and the difficult bearable. Being around you reminds me that connection, trust, and genuine care are still possible.
+
+So yes, I chose you, not lightly, not impulsively, and not without thought. I chose you for the way you make me feel, for the way we connect, and for the person you are. And every day, as I reflect on it, I am grateful that I did. o((>ω< ))o`,
+    
+  ];
+
+  let current = 0;
+
+  function openLetters() {
+    document.getElementById("lettersSection").style.display = "block";
+    buildBubbles();
+    showLetter(0);
+  }
+
+  function buildBubbles() {
+    const grid = document.getElementById("bubbleGrid");
+    grid.innerHTML = "";
+    letters.forEach((_, i) => {
+      const div = document.createElement("div");
+      div.className = "bubble";
+      div.innerText = `#${i + 1}`;
+      div.onclick = () => showLetter(i);
+      grid.appendChild(div);
+    });
+  }
+
+  function showLetter(index) {
+    current = index;
+    const box = document.getElementById("letterBox");
+    const btn = document.getElementById("nextLetterBtn");
+
+    box.innerText = letters[index];
+    box.scrollTop = 0;
+    btn.style.display = "none";
+
+    box.onscroll = () => {
+      if (box.scrollTop + box.clientHeight >= box.scrollHeight - 10) {
+        if (current < letters.length - 1) {
+          btn.style.display = "block";
+        }
+      }
+    };
+  }
+
+  function nextLetter() {
+    if (current < letters.length - 1) {
+      showLetter(current + 1);
+    }
+  }
+
+  function prevLetter() {
+    if (current > 0) {
+      showLetter(current - 1);
+    }
+  }
+
+  function goToPoems() {
+    window.location.href = "poems.html";
+  }
+</script>
+
+</body>
+</html>
