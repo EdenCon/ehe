@@ -17,6 +17,33 @@
       position: relative;
     }
 
+    /* 🐱 CAT BACKGROUND (NEW) */
+    .cat-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .cat-bg .cat {
+      position: absolute;
+      opacity: 0.25;
+      animation: floatCat linear infinite;
+    }
+
+    @keyframes floatCat {
+      from {
+        transform: translateY(100vh);
+      }
+      to {
+        transform: translateY(-120vh);
+      }
+    }
+
     /* Floating hearts, cats, and text */
     .emoji {
       position: absolute;
@@ -25,6 +52,7 @@
       animation: floatUp linear infinite;
       pointer-events: none;
       white-space: nowrap;
+      z-index: 1;
     }
 
     @keyframes floatUp {
@@ -46,6 +74,8 @@
       margin-bottom: 20px;
       text-shadow: 1px 1px 2px #ff99c8;
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
 
     h1 span {
@@ -62,6 +92,8 @@
       cursor: pointer;
       transition: transform 0.2s, background-color 0.2s;
       margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
     }
 
     button:hover {
@@ -81,6 +113,8 @@
       max-height: 60vh;
       overflow-y: auto;
       margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
     }
 
     p {
@@ -93,10 +127,15 @@
       font-size: 1.2rem;
       line-height: 1.5;
       margin-top: 10px;
+      position: relative;
+      z-index: 2;
     }
   </style>
 </head>
 <body>
+
+  <!-- 🐱 CAT BACKGROUND CONTAINER (NEW) -->
+  <div class="cat-bg" id="catBg"></div>
 
   <h1>Things I Love About <span>You</span> ❤️</h1>
   <button onclick="showReasons()">View Reasons</button>
@@ -218,12 +257,11 @@
       const appreciation = document.getElementById('appreciation');
       appreciation.style.display = 'block';
 
-      container.innerHTML = ''; // clear first
+      container.innerHTML = '';
 
       reasons.forEach((reason, index) => {
         const p = document.createElement('p');
 
-        // Add "Done Reading" button to the last reason
         if (index === reasons.length - 1) {
           p.innerHTML = `${index + 1}. <strong>${reason.replace(/you/gi, '<strong>you</strong>')}</strong> <button onclick="window.location.href='letters.html'">Done Reading</button>`;
         } else {
@@ -236,7 +274,7 @@
       container.scrollIntoView({behavior: "smooth"});
     }
 
-    // Floating emojis and text
+    // Floating emojis and text (existing)
     function createEmoji(type = "random") {
       const emoji = document.createElement('div');
       emoji.className = 'emoji';
@@ -265,6 +303,22 @@
 
     setInterval(() => createEmoji("random"), 500);
     setInterval(() => createEmoji("text"), 4000);
+
+    // 🐱 CREATE 200 BACKGROUND CATS (NEW)
+    const catBg = document.getElementById("catBg");
+
+    for (let i = 0; i < 200; i++) {
+      const cat = document.createElement("div");
+      cat.className = "cat";
+      cat.textContent = "🐱";
+
+      cat.style.left = Math.random() * 100 + "vw";
+      cat.style.fontSize = 16 + Math.random() * 30 + "px";
+      cat.style.animationDuration = 10 + Math.random() * 20 + "s";
+      cat.style.animationDelay = Math.random() * 10 + "s";
+
+      catBg.appendChild(cat);
+    }
   </script>
 
 </body>
