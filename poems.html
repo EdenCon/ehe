@@ -3,25 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Poems</title>
+<title>My Poems Collection</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #fffaf0;
+    background: #fff0f5;
     margin: 0;
     padding: 20px;
+    color: #d6336c;
+    position: relative;
+    overflow-x: hidden;
   }
 
   h1 {
     text-align: center;
-    color: #d6336c;
+    margin-bottom: 30px;
   }
 
+  /* Grid of poem cards */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 20px;
-    margin-top: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
   }
 
   .poem-card {
@@ -34,6 +41,7 @@
     text-align: center;
     cursor: pointer;
     transition: transform 0.2s, background 0.2s;
+    z-index: 2;
   }
 
   .poem-card:hover {
@@ -49,36 +57,47 @@
 
   /* Modal */
   .modal {
-    display: none; /* hidden by default */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
+    /* background: rgba(0,0,0,0.6);  <-- remove this */
+    background: #fff0f5; /* fully opaque */
     z-index: 1000;
     overflow-y: auto;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
 
   .modal-content {
     background: #fff0f5;
-    margin: 100px auto 50px auto;
+    border-radius: 15px;
     padding: 20px;
     width: 90%;
     max-width: 600px;
-    border-radius: 15px;
     position: relative;
   }
 
   .modal-title {
-    text-align: center;
     font-size: 1.5em;
+    text-align: center;
     color: #d6336c;
     margin-bottom: 20px;
   }
 
+  .modal-text {
+    line-height: 1.5;
+    color: #333;
+    white-space: pre-line;
+  }
+
   .close-btn {
-    position: fixed; /* stays on top even on scroll */
+    position: fixed;
     top: 20px;
     left: 20px;
     background: #d6336c;
@@ -92,38 +111,41 @@
     z-index: 1010;
   }
 
-  .poem-text {
-    color: #333;
-    line-height: 1.5;
+  /* Floating MWAA 😺 emojis */
+  .floating {
+    position: absolute;
+    font-size: 24px;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.6;
+    animation: floatAnim 20s linear infinite;
   }
 
-  @media (max-width: 500px) {
-    .poem-card {
-      height: 100px;
-    }
+  @keyframes floatAnim {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(180deg); }
+    100% { transform: translateY(0) rotate(360deg); }
   }
 </style>
 </head>
 <body>
 
-<h1>My Poems</h1>
+<h1>My Poems Collection</h1>
 
-<div class="grid" id="poemsGrid">
-  <!-- Poem cards will be inserted here -->
-</div>
+<div class="grid" id="poemsGrid"></div>
 
 <!-- Modal -->
 <div class="modal" id="poemModal">
   <button class="close-btn" id="closeModal">X</button>
   <div class="modal-content">
     <div class="modal-title" id="modalTitle"></div>
-    <div class="poem-text" id="modalText"></div>
+    <div class="modal-text" id="modalText"></div>
   </div>
 </div>
 
 <script>
+  // 30 sample poems (replace with your real poems)
   const poems = [
-    // Tagalog Poems
     {title: "Aking Pangarap", text: "Ito ang laman ng aking unang tula."},
     {title: "Pag-ibig sa Tag-init", text: "Mainit na damdamin, naglalakbay sa hangin."},
     {title: "Kalayaan", text: "Ang tunay na diwa ng kalayaan ay nasa puso."},
@@ -139,8 +161,6 @@
     {title: "Alon", text: "Tulad ng buhay, minsang tahimik, minsang malakas."},
     {title: "Luna", text: "Gabing maliwanag sa ilalim ng buwan."},
     {title: "Kaibigan", text: "Kasama sa bawat halakhak at luha."},
-
-    // English Poems
     {title: "Dreams", text: "Whispers of hope carried by the wind."},
     {title: "Summer Love", text: "Sun-kissed hearts and fleeting moments."},
     {title: "Freedom", text: "The soul soars where the mind dares."},
@@ -164,28 +184,39 @@
   const modalText = document.getElementById('modalText');
   const closeBtn = document.getElementById('closeModal');
 
-  poems.forEach((poem, index) => {
+  // Generate the poem cards
+  poems.forEach(poem => {
     const card = document.createElement('div');
     card.className = 'poem-card';
     card.innerHTML = `<div class="poem-title">${poem.title}</div>`;
     card.addEventListener('click', () => {
-      modal.style.display = 'block';
+      modal.style.display = 'flex';
       modalTitle.textContent = poem.title;
       modalText.textContent = poem.text;
     });
     grid.appendChild(card);
   });
 
+  // Close modal
   closeBtn.addEventListener('click', () => {
     modal.style.display = 'none';
   });
 
-  // Close modal if clicked outside content
+  // Click outside modal content closes it
   window.addEventListener('click', (e) => {
-    if (e.target == modal) {
-      modal.style.display = 'none';
-    }
+    if (e.target === modal) modal.style.display = 'none';
   });
+
+  // ==== Floating MWAA 😺 emojis ====
+  for (let i = 0; i < 20; i++) {
+    const span = document.createElement('span');
+    span.className = 'floating';
+    span.textContent = 'MWAA 😺';
+    span.style.top = Math.random() * window.innerHeight + 'px';
+    span.style.left = Math.random() * window.innerWidth + 'px';
+    span.style.animationDuration = 10 + Math.random() * 15 + 's'; // random speed
+    document.body.appendChild(span);
+  }
 </script>
 
 </body>
