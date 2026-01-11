@@ -3,58 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Letters I Didn't Give, Compiled</title>
+<title>Letters I Shared (Online Edition)</title>
 <style>
   body {
     font-family: Arial, sans-serif;
     background: #fff0f5;
     color: #d6336c;
+    margin: 0;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
   }
 
   h1 {
     text-align: center;
     margin-bottom: 30px;
+    font-size: 2em;
   }
 
+  /* Letter buttons grid */
   .letter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 10px;
+    width: 100%;
+    max-width: 800px;
     margin-bottom: 30px;
   }
 
   .letter-buttons button {
     background: #ffb6c1;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    color: #fff;
+    color: white;
     font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    padding: 10px;
+    cursor: pointer;
     transition: 0.3s;
+    text-align: center;
   }
 
   .letter-buttons button:hover {
-    background: #ff1493; /* Hot pink on hover */
+    background: #ff1493;
   }
 
+  /* Letter content card */
   .letter-content {
     background: #ffe6f0;
-    padding: 20px;
-    border-radius: 15px;
+    padding: 25px;
+    border-radius: 20px;
     width: 90%;
     max-width: 600px;
     margin-bottom: 20px;
     display: none;
-    white-space: pre-line;
     opacity: 0;
     transform: scale(0.95);
     transition: opacity 0.5s ease, transform 0.5s ease;
+    position: relative;
   }
 
   .letter-content.show {
@@ -63,20 +69,21 @@
     transform: scale(1);
   }
 
+  /* Navigation buttons */
   .nav-buttons {
     display: flex;
     justify-content: space-between;
     width: 100%;
     max-width: 600px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
 
   .nav-buttons button {
     background: #d6336c;
     color: white;
     border: none;
-    padding: 10px 20px;
     border-radius: 25px;
+    padding: 10px 20px;
     cursor: pointer;
     font-weight: bold;
     transition: 0.3s;
@@ -87,7 +94,7 @@
     cursor: not-allowed;
   }
 
-  /* Floating circular Poems button */
+  /* Floating Poems button */
   #poemsBtn {
     position: fixed;
     bottom: 30px;
@@ -105,17 +112,16 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 10px;
     z-index: 1000;
     transition: 0.3s;
   }
 
   #poemsBtn.unlocked {
     cursor: pointer;
-    background: #ff1493; /* Hot pink when unlocked */
+    background: #ff1493;
   }
 
-  /* Poems overlay */
+  /* Poems overlay modal */
   #poemsOverlay {
     display: none;
     position: fixed;
@@ -126,17 +132,15 @@
     background: rgba(255, 182, 193, 0.95);
     z-index: 999;
     overflow: auto;
-    padding: 20px;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    display: none;
+    padding: 20px;
   }
 
   #poemsOverlay h2 {
     text-align: center;
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin: 40px 0 20px 0;
   }
 
   #poemsOverlay p {
@@ -161,14 +165,18 @@
 </style>
 </head>
 <body>
-<h1>Letters I Didn't Give, Compiled</h1>
 
+<h1>Letters I Shared (Online Edition)</h1>
+
+<!-- Letter buttons grid -->
 <div class="letter-buttons" id="letterButtons"></div>
 
+<!-- Letter content -->
 <div class="letter-content" id="letterContent">
   <p id="letterText"></p>
 </div>
 
+<!-- Navigation buttons -->
 <div class="nav-buttons">
   <button id="prevBtn" onclick="prevLetter()" disabled>Previous</button>
   <button id="nextBtn" onclick="nextLetter()">Next</button>
@@ -181,60 +189,25 @@
 <div id="poemsOverlay">
   <button class="closeBtn" onclick="closePoems()">X</button>
   <h2>Poems Section</h2>
-  <p>Here’s where your poems will appear. Add them later.</p>
+  <p>Here’s where your poems will appear.</p>
 </div>
 
 <script>
-  // Replace these sample letters with your actual 48 letters
+  // ==== Insert your 48 letters here ====
   const letters = [
-    "January 1, 2026\n\nLetter 1 content...",
-    "January 2, 2026\n\nLetter 2 content...",
-    "January 3, 2026\n\nLetter 3 content...",
-    "January 4, 2026\n\nLetter 4 content...",
-    "January 5, 2026\n\nLetter 5 content...",
-    "January 6, 2026\n\nLetter 6 content...",
-    "January 7, 2026\n\nLetter 7 content...",
-    "January 8, 2026\n\nLetter 8 content...",
-    "January 9, 2026\n\nLetter 9 content...",
-    "January 10, 2026\n\nLetter 10 content...",
-    "January 11, 2026\n\nLetter 11 content...",
-    "January 12, 2026\n\nLetter 12 content...",
-    "January 13, 2026\n\nLetter 13 content...",
-    "January 14, 2026\n\nLetter 14 content...",
-    "January 15, 2026\n\nLetter 15 content...",
-    "January 16, 2026\n\nLetter 16 content...",
-    "January 17, 2026\n\nLetter 17 content...",
-    "January 18, 2026\n\nLetter 18 content...",
-    "January 19, 2026\n\nLetter 19 content...",
-    "January 20, 2026\n\nLetter 20 content...",
-    "January 21, 2026\n\nLetter 21 content...",
-    "January 22, 2026\n\nLetter 22 content...",
-    "January 23, 2026\n\nLetter 23 content...",
-    "January 24, 2026\n\nLetter 24 content...",
-    "January 25, 2026\n\nLetter 25 content...",
-    "January 26, 2026\n\nLetter 26 content...",
-    "January 27, 2026\n\nLetter 27 content...",
-    "January 28, 2026\n\nLetter 28 content...",
-    "January 29, 2026\n\nLetter 29 content...",
-    "January 30, 2026\n\nLetter 30 content...",
-    "January 31, 2026\n\nLetter 31 content...",
-    "February 1, 2026\n\nLetter 32 content...",
-    "February 2, 2026\n\nLetter 33 content...",
-    "February 3, 2026\n\nLetter 34 content...",
-    "February 4, 2026\n\nLetter 35 content...",
-    "February 5, 2026\n\nLetter 36 content...",
-    "February 6, 2026\n\nLetter 37 content...",
-    "February 7, 2026\n\nLetter 38 content...",
-    "February 8, 2026\n\nLetter 39 content...",
-    "February 9, 2026\n\nLetter 40 content...",
-    "February 10, 2026\n\nLetter 41 content...",
-    "February 11, 2026\n\nLetter 42 content...",
-    "February 12, 2026\n\nLetter 43 content...",
-    "February 13, 2026\n\nLetter 44 content...",
-    "February 14, 2026\n\nLetter 45 content...",
-    "February 15, 2026\n\nLetter 46 content...",
-    "February 16, 2026\n\nLetter 47 content...",
-    "February 17, 2026\n\nLetter 48 content..."
+    `January 1, 2026
+
+Letter 1 content goes here...`,
+
+    `January 2, 2026
+
+Letter 2 content goes here...`,
+
+    `January 3, 2026
+
+Letter 3 content goes here...`,
+
+    // ... continue until letter #48
   ];
 
   const letterButtonsDiv = document.getElementById("letterButtons");
@@ -247,42 +220,34 @@
 
   let currentLetter = 0;
 
-  // Generate letter buttons
+  // Generate letter buttons dynamically
   letters.forEach((_, index) => {
     const btn = document.createElement("button");
     btn.innerText = `Letter #${index + 1}`;
-    btn.onclick = () => showLetter(index);
+    btn.addEventListener("click", () => showLetter(index));
     letterButtonsDiv.appendChild(btn);
   });
 
   function showLetter(index) {
     currentLetter = index;
-    letterText.innerText = letters[currentLetter];
+    letterText.innerText = letters[index];
 
-    // Reset animation
+    // Animate fade-in
     letterContentDiv.classList.remove("show");
     letterContentDiv.style.display = "block";
-
-    // Trigger reflow for animation
-    void letterContentDiv.offsetWidth;
-
-    // Animate fade+pop
+    void letterContentDiv.offsetWidth; // trigger reflow
     letterContentDiv.classList.add("show");
 
     updateNav();
-    letterContentDiv.scrollIntoView({ behavior: "smooth" });
+    letterContentDiv.scrollIntoView({behavior: "smooth"});
   }
 
   function nextLetter() {
-    if (currentLetter < letters.length - 1) {
-      showLetter(currentLetter + 1);
-    }
+    if (currentLetter < letters.length - 1) showLetter(currentLetter + 1);
   }
 
   function prevLetter() {
-    if (currentLetter > 0) {
-      showLetter(currentLetter - 1);
-    }
+    if (currentLetter > 0) showLetter(currentLetter - 1);
   }
 
   function updateNav() {
@@ -299,16 +264,17 @@
   function openPoems() {
     if (!poemsBtn.classList.contains("unlocked")) return;
     poemsOverlay.style.display = "flex";
-    document.body.style.overflow = "hidden"; // prevent scrolling behind
+    document.body.style.overflow = "hidden";
   }
 
   function closePoems() {
     poemsOverlay.style.display = "none";
-    document.body.style.overflow = "auto"; // restore scrolling
+    document.body.style.overflow = "auto";
   }
 
   // Initialize first letter
   showLetter(0);
 </script>
+
 </body>
 </html>
