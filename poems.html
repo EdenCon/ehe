@@ -16,7 +16,7 @@
   }
 
   h1 {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
   }
 
@@ -28,9 +28,9 @@
     max-width: 600px;
     margin-bottom: 20px;
     white-space: pre-line;
-    transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
     transform: scale(0.95);
+    transition: transform 0.4s ease, opacity 0.4s ease;
   }
 
   .poem.show {
@@ -39,15 +39,18 @@
   }
 
   .backBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
     background: #d6336c;
     color: white;
     border: none;
     padding: 10px 25px;
-    border-radius: 25px;
+    border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 20px;
     transition: 0.3s;
+    z-index: 1000;
   }
 
   .backBtn:hover {
@@ -56,33 +59,56 @@
 </style>
 </head>
 <body>
+
 <h1>Poems Section</h1>
 
-<!-- Example Poems -->
-<div class="poem" id="poem1">Roses are red,
-Violets are blue,
-This is a poem,
-Just for you.</div>
+<!-- Add your 15 English poems -->
+<div class="poem">English Poem 1 content here...</div>
+<div class="poem">English Poem 2 content here...</div>
+<div class="poem">English Poem 3 content here...</div>
+<div class="poem">English Poem 4 content here...</div>
+<div class="poem">English Poem 5 content here...</div>
+<div class="poem">English Poem 6 content here...</div>
+<div class="poem">English Poem 7 content here...</div>
+<div class="poem">English Poem 8 content here...</div>
+<div class="poem">English Poem 9 content here...</div>
+<div class="poem">English Poem 10 content here...</div>
+<div class="poem">English Poem 11 content here...</div>
+<div class="poem">English Poem 12 content here...</div>
+<div class="poem">English Poem 13 content here...</div>
+<div class="poem">English Poem 14 content here...</div>
+<div class="poem">English Poem 15 content here...</div>
 
-<div class="poem" id="poem2">Another poem,
-Soft and sweet,
-Words from the heart,
-That you can keep.</div>
+<!-- Add your 15 Tagalog poems -->
+<div class="poem">Tagalog Poem 1 content here...</div>
+<div class="poem">Tagalog Poem 2 content here...</div>
+<div class="poem">Tagalog Poem 3 content here...</div>
+<div class="poem">Tagalog Poem 4 content here...</div>
+<div class="poem">Tagalog Poem 5 content here...</div>
+<div class="poem">Tagalog Poem 6 content here...</div>
+<div class="poem">Tagalog Poem 7 content here...</div>
+<div class="poem">Tagalog Poem 8 content here...</div>
+<div class="poem">Tagalog Poem 9 content here...</div>
+<div class="poem">Tagalog Poem 10 content here...</div>
+<div class="poem">Tagalog Poem 11 content here...</div>
+<div class="poem">Tagalog Poem 12 content here...</div>
+<div class="poem">Tagalog Poem 13 content here...</div>
+<div class="poem">Tagalog Poem 14 content here...</div>
+<div class="poem">Tagalog Poem 15 content here...</div>
 
 <button class="backBtn" onclick="goBack()">Back to Letters</button>
 
 <script>
-  // Simple fade-in animation for poems
+  // Fade + pop animation for poems, staggered
   const poems = document.querySelectorAll('.poem');
   poems.forEach((poem, index) => {
     setTimeout(() => {
       poem.classList.add('show');
-    }, index * 200); // stagger fade-in
+    }, index * 200); // each poem appears 0.2s after the previous
   });
 
   function goBack() {
-    // Go back to letters.html
-    window.location.href = "letters.html";
+    window.location.href = "letters.html"; // link back to your letters page
   }
 </script>
 </body>
