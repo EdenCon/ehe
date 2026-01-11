@@ -41,7 +41,7 @@
 
   /* Hot-pink hover for letters */
   .letter-buttons button:hover {
-    background: #ff1493; /* Hot pink */
+    background: #ff1493;
   }
 
   .letter-content {
@@ -53,6 +53,15 @@
     margin-bottom: 20px;
     display: none;
     white-space: pre-line;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .letter-content.show {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
   }
 
   .nav-buttons {
@@ -181,11 +190,55 @@
 </div>
 
 <script>
-  // Replace with your actual 48 letters
+  // Replace with your 48 letters
   const letters = [
     "January 1, 2026\n\nLetter 1 content...",
     "January 2, 2026\n\nLetter 2 content...",
-    // ... continue until letter 48
+    "January 3, 2026\n\nLetter 3 content...",
+    "January 4, 2026\n\nLetter 4 content...",
+    "January 5, 2026\n\nLetter 5 content...",
+    "January 6, 2026\n\nLetter 6 content...",
+    "January 7, 2026\n\nLetter 7 content...",
+    "January 8, 2026\n\nLetter 8 content...",
+    "January 9, 2026\n\nLetter 9 content...",
+    "January 10, 2026\n\nLetter 10 content...",
+    "January 11, 2026\n\nLetter 11 content...",
+    "January 12, 2026\n\nLetter 12 content...",
+    "January 13, 2026\n\nLetter 13 content...",
+    "January 14, 2026\n\nLetter 14 content...",
+    "January 15, 2026\n\nLetter 15 content...",
+    "January 16, 2026\n\nLetter 16 content...",
+    "January 17, 2026\n\nLetter 17 content...",
+    "January 18, 2026\n\nLetter 18 content...",
+    "January 19, 2026\n\nLetter 19 content...",
+    "January 20, 2026\n\nLetter 20 content...",
+    "January 21, 2026\n\nLetter 21 content...",
+    "January 22, 2026\n\nLetter 22 content...",
+    "January 23, 2026\n\nLetter 23 content...",
+    "January 24, 2026\n\nLetter 24 content...",
+    "January 25, 2026\n\nLetter 25 content...",
+    "January 26, 2026\n\nLetter 26 content...",
+    "January 27, 2026\n\nLetter 27 content...",
+    "January 28, 2026\n\nLetter 28 content...",
+    "January 29, 2026\n\nLetter 29 content...",
+    "January 30, 2026\n\nLetter 30 content...",
+    "January 31, 2026\n\nLetter 31 content...",
+    "February 1, 2026\n\nLetter 32 content...",
+    "February 2, 2026\n\nLetter 33 content...",
+    "February 3, 2026\n\nLetter 34 content...",
+    "February 4, 2026\n\nLetter 35 content...",
+    "February 5, 2026\n\nLetter 36 content...",
+    "February 6, 2026\n\nLetter 37 content...",
+    "February 7, 2026\n\nLetter 38 content...",
+    "February 8, 2026\n\nLetter 39 content...",
+    "February 9, 2026\n\nLetter 40 content...",
+    "February 10, 2026\n\nLetter 41 content...",
+    "February 11, 2026\n\nLetter 42 content...",
+    "February 12, 2026\n\nLetter 43 content...",
+    "February 13, 2026\n\nLetter 44 content...",
+    "February 14, 2026\n\nLetter 45 content...",
+    "February 15, 2026\n\nLetter 46 content...",
+    "February 16, 2026\n\nLetter 47 content...",
     "February 17, 2026\n\nLetter 48 content..."
   ];
 
@@ -209,22 +262,30 @@
   function showLetter(index) {
     currentLetter = index;
     letterText.innerText = letters[currentLetter];
+
+    // Reset animation
+    letterContentDiv.classList.remove("show");
     letterContentDiv.style.display = "block";
+
+    // Trigger reflow for animation
+    void letterContentDiv.offsetWidth;
+
+    // Add class to animate
+    letterContentDiv.classList.add("show");
+
     updateNav();
     letterContentDiv.scrollIntoView({ behavior: "smooth" });
   }
 
   function nextLetter() {
     if (currentLetter < letters.length - 1) {
-      currentLetter++;
-      showLetter(currentLetter);
+      showLetter(currentLetter + 1);
     }
   }
 
   function prevLetter() {
     if (currentLetter > 0) {
-      currentLetter--;
-      showLetter(currentLetter);
+      showLetter(currentLetter - 1);
     }
   }
 
