@@ -27,11 +27,11 @@
     width: 90%;
     max-width: 600px;
     margin-bottom: 20px;
-    white-space: pre-line;
     opacity: 0;
     transform: scale(0.95);
     transition: transform 1s ease-in-out, opacity 1s ease-in-out;
     text-align: center;
+    white-space: pre-line; /* preserves line breaks */
   }
 
   .poem.show {
@@ -67,159 +67,188 @@
 
 <h1>Poems Section</h1>
 
-<!-- English Poems -->
-<div class="poem">
-  <h3>Home in Your Smile</h3>
-  Every moment with you feels like home,
-  A place where my heart is never alone.
-  Your laughter lingers, soft and clear,
-  And every whisper draws me near.
-
-  The stars may fall, the night may fade,
-  But your warmth is a light that will never jade.
-  Your hand in mine, a perfect fit,
-  A silent promise, a gentle knit.
-
-  I watch your eyes, deep oceans of calm,
-  Every glance from you feels like a balm.
-  The world spins fast, yet here I stay,
-  Anchored to you, come what may.
-
-  Each word you speak, a melody sweet,
-  Each heartbeat of yours makes mine complete.
-  In storms or sunshine, in joy or fear,
-  My home is your heart, always near.
-
-  I’ll hold you close, through all life’s miles,
-  Finding eternity in your soft smiles.
-  Time cannot steal what we have grown,
-  For every moment with you feels like home.
-
-  With every hug, the world feels right,
-  Your love is my shelter in darkest night.
-  Even when silence surrounds the air,
-  I feel your heartbeat always there.
-
-  No treasure compares, no gold could shine,
-  Like the quiet magic of calling you mine.
-  Forever isn’t long enough to show,
-  How much my heart loves you, you know.
-
-  I find my peace in the way you stay,
-  In simple moments, day by day.
-  You turn the ordinary into something true,
-  Just by being you, just by being you.
-
-  When the world feels loud and pulls me away,
-  Your presence brings me back to okay.
-  You ground my thoughts, you calm my mind,
-  A steady comfort I didn’t know I’d find.
-
-  Every step feels lighter when you’re near,
-  Every doubt fades, every fear.
-  You don’t have to try or prove a thing,
-  Your love is enough, it’s everything.
-
-  In crowded rooms or quiet space,
-  I search for you, your familiar face.
-  Because wherever you happen to be,
-  That’s where home feels like to me.
-
-  I don’t need walls or perfect plans,
-  Just your warmth and your steady hands.
-  Wherever life decides to roam,
-  If I’m with you, I’m already home.
-
-  So if the world should change its tone,
-  And paths feel unsure, unknown,
-  I’ll follow the light I’ve always known—
-  Home has always been your smile alone.
-</div>
-
-<div class="poem">
-  <h3>Sun on Rainy Days</h3>
-  Some days feel gray before I wake,
-  The world is heavy, my heart aches.
-  I walk the halls with quiet steps,
-  Lost in thoughts, in lonely depths.
-
-  The sky outside is pale and dim,
-  My mind is heavy, my chances slim.
-  I barely notice the world around,
-  Until your presence is finally found.
-
-  Then I see you, just standing there,
-  Your quiet smile, your gentle stare.
-  The clouds inside me start to fade,
-  A little light begins to invade.
-
-  Even a glance can shift my mood,
-  Turn lonely silence into something good.
-  A passing word, a fleeting grin,
-  And suddenly I feel warmth within.
-
-  The minutes stretch, the hallways slow,
-  Yet time feels faster when I see you go.
-  I catch your eyes in the crowded room,
-  And all at once, the gray turns bloom.
-
-  The day feels lighter, the halls less cold,
-  Your presence bright, a sight to behold.
-  I don’t need hours or grand displays,
-  Just a spark from you to light my days.
-
-  Even small moments, a shared glance,
-  Make my heart skip, give it a chance.
-  A scribbled note, a whispered “hi,”
-  Can chase the storm clouds from the sky.
-
-  Rain may fall, and skies may weep,
-  My thoughts of you run soft and deep.
-  Though life feels heavy, my heart confined,
-  Seeing you makes the sun shine behind.
-
-  The world goes on, the day drifts by,
-  But your gentle light will never die.
-  Even brief moments, though few and small,
-  Bring me a warmth that outshines all.
-
-  I leave the school, the hallways bare,
-  Yet carry your light with me everywhere.
-  Though the clouds return and skies grow gray,
-  I’ll remember your sun throughout the day.
-
-  You are the spark that breaks the gloom,
-  The gentle warmth that fills the room.
-  Even in sadness, when hope seems thin,
-  You shine inside me, bright within.
-
-  Some days may start with sorrow’s haze,
-  Yet you arrive, my sun on rainy days.
-  A quiet presence, soft and true,
-  I feel the world is bright with you.
-</div>
-
-<!-- Placeholder for English Poems 3-15 -->
-<div class="poem"><h3>English Poem 3</h3>Content here...</div>
-<!-- ...repeat up to 15 -->
-
-<!-- Placeholder for Tagalog Poems 1-15 -->
-<div class="poem"><h3>Tagalog Poem 1</h3>Content here...</div>
-<!-- ...repeat up to 15 -->
+<div id="poemsContainer"></div>
 
 <button class="backBtn" onclick="goBack()">Back to Letters</button>
 
 <script>
-  const poems = document.querySelectorAll('.poem');
-  poems.forEach((poem, index) => {
-    setTimeout(() => {
-      poem.classList.add('show');
-    }, index * 200); // stagger fade-in for each poem
-  });
+const poems = [
+  {
+    title: "Home in Your Smile",
+    content: `Every moment with you feels like home,
+A place where my heart is never alone.
+Your laughter lingers, soft and clear,
+And every whisper draws me near.
 
-  function goBack() {
-    window.location.href = "letters.html"; // go back to letters page
-  }
+The stars may fall, the night may fade,
+But your warmth is a light that will never jade.
+Your hand in mine, a perfect fit,
+A silent promise, a gentle knit.
+
+I watch your eyes, deep oceans of calm,
+Every glance from you feels like a balm.
+The world spins fast, yet here I stay,
+Anchored to you, come what may.
+
+Each word you speak, a melody sweet,
+Each heartbeat of yours makes mine complete.
+In storms or sunshine, in joy or fear,
+My home is your heart, always near.
+
+I’ll hold you close, through all life’s miles,
+Finding eternity in your soft smiles.
+Time cannot steal what we have grown,
+For every moment with you feels like home.
+
+With every hug, the world feels right,
+Your love is my shelter in darkest night.
+Even when silence surrounds the air,
+I feel your heartbeat always there.
+
+No treasure compares, no gold could shine,
+Like the quiet magic of calling you mine.
+Forever isn’t long enough to show,
+How much my heart loves you, you know.
+
+I find my peace in the way you stay,
+In simple moments, day by day.
+You turn the ordinary into something true,
+Just by being you, just by being you.
+
+When the world feels loud and pulls me away,
+Your presence brings me back to okay.
+You ground my thoughts, you calm my mind,
+A steady comfort I didn’t know I’d find.
+
+Every step feels lighter when you’re near,
+Every doubt fades, every fear.
+You don’t have to try or prove a thing,
+Your love is enough, it’s everything.
+
+In crowded rooms or quiet space,
+I search for you, your familiar face.
+Because wherever you happen to be,
+That’s where home feels like to me.
+
+I don’t need walls or perfect plans,
+Just your warmth and your steady hands.
+Wherever life decides to roam,
+If I’m with you, I’m already home.
+
+So if the world should change its tone,
+And paths feel unsure, unknown,
+I’ll follow the light I’ve always known—
+Home has always been your smile alone.`
+  },
+  {
+    title: "Sun on Rainy Days",
+    content: `Some days feel gray before I wake,
+The world is heavy, my heart aches.
+I walk the halls with quiet steps,
+Lost in thoughts, in lonely depths.
+
+The sky outside is pale and dim,
+My mind is heavy, my chances slim.
+I barely notice the world around,
+Until your presence is finally found.
+
+Then I see you, just standing there,
+Your quiet smile, your gentle stare.
+The clouds inside me start to fade,
+A little light begins to invade.
+
+Even a glance can shift my mood,
+Turn lonely silence into something good.
+A passing word, a fleeting grin,
+And suddenly I feel warmth within.
+
+The minutes stretch, the hallways slow,
+Yet time feels faster when I see you go.
+I catch your eyes in the crowded room,
+And all at once, the gray turns bloom.
+
+The day feels lighter, the halls less cold,
+Your presence bright, a sight to behold.
+I don’t need hours or grand displays,
+Just a spark from you to light my days.
+
+Even small moments, a shared glance,
+Make my heart skip, give it a chance.
+A scribbled note, a whispered “hi,”
+Can chase the storm clouds from the sky.
+
+Rain may fall, and skies may weep,
+My thoughts of you run soft and deep.
+Though life feels heavy, my heart confined,
+Seeing you makes the sun shine behind.
+
+The world goes on, the day drifts by,
+But your gentle light will never die.
+Even brief moments, though few and small,
+Bring me a warmth that outshines all.
+
+I leave the school, the hallways bare,
+Yet carry your light with me everywhere.
+Though the clouds return and skies grow gray,
+I’ll remember your sun throughout the day.
+
+You are the spark that breaks the gloom,
+The gentle warmth that fills the room.
+Even in sadness, when hope seems thin,
+You shine inside me, bright within.
+
+Some days may start with sorrow’s haze,
+Yet you arrive, my sun on rainy days.
+A quiet presence, soft and true,
+I feel the world is bright with you.`
+  },
+  // Placeholders for remaining poems
+  { title: "English Poem 3", content: "Content here..." },
+  { title: "English Poem 4", content: "Content here..." },
+  { title: "English Poem 5", content: "Content here..." },
+  { title: "English Poem 6", content: "Content here..." },
+  { title: "English Poem 7", content: "Content here..." },
+  { title: "English Poem 8", content: "Content here..." },
+  { title: "English Poem 9", content: "Content here..." },
+  { title: "English Poem 10", content: "Content here..." },
+  { title: "English Poem 11", content: "Content here..." },
+  { title: "English Poem 12", content: "Content here..." },
+  { title: "English Poem 13", content: "Content here..." },
+  { title: "English Poem 14", content: "Content here..." },
+  { title: "English Poem 15", content: "Content here..." },
+  { title: "Tagalog Poem 1", content: "Content here..." },
+  { title: "Tagalog Poem 2", content: "Content here..." },
+  { title: "Tagalog Poem 3", content: "Content here..." },
+  { title: "Tagalog Poem 4", content: "Content here..." },
+  { title: "Tagalog Poem 5", content: "Content here..." },
+  { title: "Tagalog Poem 6", content: "Content here..." },
+  { title: "Tagalog Poem 7", content: "Content here..." },
+  { title: "Tagalog Poem 8", content: "Content here..." },
+  { title: "Tagalog Poem 9", content: "Content here..." },
+  { title: "Tagalog Poem 10", content: "Content here..." },
+  { title: "Tagalog Poem 11", content: "Content here..." },
+  { title: "Tagalog Poem 12", content: "Content here..." },
+  { title: "Tagalog Poem 13", content: "Content here..." },
+  { title: "Tagalog Poem 14", content: "Content here..." },
+  { title: "Tagalog Poem 15", content: "Content here..." }
+];
+
+const container = document.getElementById('poemsContainer');
+
+poems.forEach((p, index) => {
+  const div = document.createElement('div');
+  div.classList.add('poem');
+  div.innerHTML = `<h3>${p.title}</h3>${p.content.replace(/\n/g, "<br>")}`;
+  container.appendChild(div);
+
+  // Fade + pop animation with stagger
+  setTimeout(() => div.classList.add('show'), index * 200);
+});
+
+function goBack() {
+  window.location.href = "letters.html";
+}
 </script>
+
 </body>
 </html>
