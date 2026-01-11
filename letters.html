@@ -39,9 +39,8 @@
     transition: 0.3s;
   }
 
-  /* Hot-pink hover for letters */
   .letter-buttons button:hover {
-    background: #ff1493;
+    background: #ff1493; /* Hot pink on hover */
   }
 
   .letter-content {
@@ -113,7 +112,7 @@
 
   #poemsBtn.unlocked {
     cursor: pointer;
-    background: #ff1493; /* hot pink */
+    background: #ff1493; /* Hot pink when unlocked */
   }
 
   /* Poems overlay */
@@ -128,6 +127,21 @@
     z-index: 999;
     overflow: auto;
     padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+
+  #poemsOverlay h2 {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  #poemsOverlay p {
+    white-space: pre-line;
+    margin-bottom: 10px;
   }
 
   #poemsOverlay .closeBtn {
@@ -143,24 +157,6 @@
     height: 40px;
     cursor: pointer;
     z-index: 1000;
-  }
-
-  #poemsOverlay h2 {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 20px;
-  }
-
-  #poemsOverlay p {
-    white-space: pre-line;
-    margin-bottom: 10px;
-  }
-
-  #unlockNote {
-    text-align: center;
-    font-size: 14px;
-    margin-top: 10px;
-    color: #888;
   }
 </style>
 </head>
@@ -180,7 +176,6 @@
 
 <!-- Floating Poems button -->
 <button id="poemsBtn" onclick="openPoems()">Poems</button>
-<div id="unlockNote">Unlocks after reading the last letter (48th)</div>
 
 <!-- Poems overlay -->
 <div id="poemsOverlay">
@@ -190,7 +185,7 @@
 </div>
 
 <script>
-  // Replace with your 48 letters
+  // Replace these sample letters with your actual 48 letters
   const letters = [
     "January 1, 2026\n\nLetter 1 content...",
     "January 2, 2026\n\nLetter 2 content...",
@@ -248,6 +243,7 @@
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
   const poemsBtn = document.getElementById("poemsBtn");
+  const poemsOverlay = document.getElementById("poemsOverlay");
 
   let currentLetter = 0;
 
@@ -270,7 +266,7 @@
     // Trigger reflow for animation
     void letterContentDiv.offsetWidth;
 
-    // Add class to animate
+    // Animate fade+pop
     letterContentDiv.classList.add("show");
 
     updateNav();
@@ -302,11 +298,13 @@
 
   function openPoems() {
     if (!poemsBtn.classList.contains("unlocked")) return;
-    document.getElementById("poemsOverlay").style.display = "block";
+    poemsOverlay.style.display = "flex";
+    document.body.style.overflow = "hidden"; // prevent scrolling behind
   }
 
   function closePoems() {
-    document.getElementById("poemsOverlay").style.display = "none";
+    poemsOverlay.style.display = "none";
+    document.body.style.overflow = "auto"; // restore scrolling
   }
 
   // Initialize first letter
