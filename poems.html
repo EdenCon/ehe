@@ -3,251 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Poems Section</title>
+<title>Poems</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #fff0f5;
-    color: #d6336c;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px;
+    background: #fffaf0;
+    margin: 0;
+    padding: 20px;
   }
 
   h1 {
-    margin-bottom: 30px;
     text-align: center;
+    color: #d6336c;
   }
 
-  .poem {
-    background: #ffe6f0;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+  }
+
+  .poem-card {
+    background: #ffe4e1;
     border-radius: 15px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .poem-card:hover {
+    transform: scale(1.05);
+    background: #ffc0cb;
+  }
+
+  .poem-title {
+    font-weight: bold;
+    color: #b3003b;
+    padding: 10px;
+  }
+
+  /* Modal */
+  .modal {
+    display: none; /* hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  .modal-content {
+    background: #fff0f5;
+    margin: 100px auto 50px auto;
     padding: 20px;
     width: 90%;
     max-width: 600px;
-    margin-bottom: 20px;
-    opacity: 0;
-    transform: scale(0.95);
-    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    border-radius: 15px;
+    position: relative;
+  }
+
+  .modal-title {
     text-align: center;
-    white-space: pre-line; /* preserves line breaks */
+    font-size: 1.5em;
+    color: #d6336c;
+    margin-bottom: 20px;
   }
 
-  .poem.show {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .poem h3 {
-    margin-bottom: 15px;
-  }
-
-  .backBtn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
+  .close-btn {
+    position: fixed; /* stays on top even on scroll */
+    top: 20px;
+    left: 20px;
     background: #d6336c;
     color: white;
     border: none;
-    padding: 10px 25px;
-    border-radius: 50px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-    z-index: 1000;
+    z-index: 1010;
   }
 
-  .backBtn:hover {
-    background: #ff1493;
+  .poem-text {
+    color: #333;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 500px) {
+    .poem-card {
+      height: 100px;
+    }
   }
 </style>
 </head>
 <body>
 
-<h1>Poems Section</h1>
+<h1>My Poems</h1>
 
-<div id="poemsContainer"></div>
+<div class="grid" id="poemsGrid">
+  <!-- Poem cards will be inserted here -->
+</div>
 
-<button class="backBtn" onclick="goBack()">Back to Letters</button>
+<!-- Modal -->
+<div class="modal" id="poemModal">
+  <button class="close-btn" id="closeModal">X</button>
+  <div class="modal-content">
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="poem-text" id="modalText"></div>
+  </div>
+</div>
 
 <script>
-const poems = [
-  {
-    title: "Home in Your Smile",
-    content: `Every moment with you feels like home,
-A place where my heart is never alone.
-Your laughter lingers, soft and clear,
-And every whisper draws me near.
+  const poems = [
+    // Tagalog Poems
+    {title: "Aking Pangarap", text: "Ito ang laman ng aking unang tula."},
+    {title: "Pag-ibig sa Tag-init", text: "Mainit na damdamin, naglalakbay sa hangin."},
+    {title: "Kalayaan", text: "Ang tunay na diwa ng kalayaan ay nasa puso."},
+    {title: "Bituin sa Gabi", text: "Liwanag na nagbibigay pag-asa sa dilim."},
+    {title: "Himig ng Hangin", text: "Sariwang simoy, dala'y kwento ng buhay."},
+    {title: "Lihim ng Puso", text: "Hindi lahat ng damdamin ay nabubunyag."},
+    {title: "Paglakbay", text: "Hakbang-hakbang sa landas ng pangarap."},
+    {title: "Tahanan", text: "Lugar ng init at pagmamahalan."},
+    {title: "Dahon sa Hangin", text: "Parang damdamin, palaging naglalakbay."},
+    {title: "Umaga", text: "Bago sumikat ang araw, may pag-asa."},
+    {title: "Gabi", text: "Tahimik ngunit puno ng mga kwento."},
+    {title: "Pag-asa", text: "Liwanag sa gitna ng dilim."},
+    {title: "Alon", text: "Tulad ng buhay, minsang tahimik, minsang malakas."},
+    {title: "Luna", text: "Gabing maliwanag sa ilalim ng buwan."},
+    {title: "Kaibigan", text: "Kasama sa bawat halakhak at luha."},
 
-The stars may fall, the night may fade,
-But your warmth is a light that will never jade.
-Your hand in mine, a perfect fit,
-A silent promise, a gentle knit.
+    // English Poems
+    {title: "Dreams", text: "Whispers of hope carried by the wind."},
+    {title: "Summer Love", text: "Sun-kissed hearts and fleeting moments."},
+    {title: "Freedom", text: "The soul soars where the mind dares."},
+    {title: "Stars at Night", text: "Tiny lights guiding wandering dreams."},
+    {title: "Song of the Wind", text: "Gentle whispers across the meadow."},
+    {title: "Secret Heart", text: "Words unspoken, feelings hidden."},
+    {title: "Journey", text: "Steps forward on unknown paths."},
+    {title: "Home", text: "A place where hearts feel warmth."},
+    {title: "Leaves in the Breeze", text: "Drifting like thoughts through time."},
+    {title: "Morning", text: "New light, new hope in every dawn."},
+    {title: "Night", text: "Silent, yet full of stories untold."},
+    {title: "Hope", text: "A tiny spark that never dies."},
+    {title: "Waves", text: "Life's rhythm, calm and stormy alike."},
+    {title: "Moonlight", text: "Soft glow illuminating quiet dreams."},
+    {title: "Friendship", text: "Shared laughter and unspoken bonds."}
+  ];
 
-I watch your eyes, deep oceans of calm,
-Every glance from you feels like a balm.
-The world spins fast, yet here I stay,
-Anchored to you, come what may.
+  const grid = document.getElementById('poemsGrid');
+  const modal = document.getElementById('poemModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalText = document.getElementById('modalText');
+  const closeBtn = document.getElementById('closeModal');
 
-Each word you speak, a melody sweet,
-Each heartbeat of yours makes mine complete.
-In storms or sunshine, in joy or fear,
-My home is your heart, always near.
+  poems.forEach((poem, index) => {
+    const card = document.createElement('div');
+    card.className = 'poem-card';
+    card.innerHTML = `<div class="poem-title">${poem.title}</div>`;
+    card.addEventListener('click', () => {
+      modal.style.display = 'block';
+      modalTitle.textContent = poem.title;
+      modalText.textContent = poem.text;
+    });
+    grid.appendChild(card);
+  });
 
-I’ll hold you close, through all life’s miles,
-Finding eternity in your soft smiles.
-Time cannot steal what we have grown,
-For every moment with you feels like home.
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
 
-With every hug, the world feels right,
-Your love is my shelter in darkest night.
-Even when silence surrounds the air,
-I feel your heartbeat always there.
-
-No treasure compares, no gold could shine,
-Like the quiet magic of calling you mine.
-Forever isn’t long enough to show,
-How much my heart loves you, you know.
-
-I find my peace in the way you stay,
-In simple moments, day by day.
-You turn the ordinary into something true,
-Just by being you, just by being you.
-
-When the world feels loud and pulls me away,
-Your presence brings me back to okay.
-You ground my thoughts, you calm my mind,
-A steady comfort I didn’t know I’d find.
-
-Every step feels lighter when you’re near,
-Every doubt fades, every fear.
-You don’t have to try or prove a thing,
-Your love is enough, it’s everything.
-
-In crowded rooms or quiet space,
-I search for you, your familiar face.
-Because wherever you happen to be,
-That’s where home feels like to me.
-
-I don’t need walls or perfect plans,
-Just your warmth and your steady hands.
-Wherever life decides to roam,
-If I’m with you, I’m already home.
-
-So if the world should change its tone,
-And paths feel unsure, unknown,
-I’ll follow the light I’ve always known—
-Home has always been your smile alone.`
-  },
-  {
-    title: "Sun on Rainy Days",
-    content: `Some days feel gray before I wake,
-The world is heavy, my heart aches.
-I walk the halls with quiet steps,
-Lost in thoughts, in lonely depths.
-
-The sky outside is pale and dim,
-My mind is heavy, my chances slim.
-I barely notice the world around,
-Until your presence is finally found.
-
-Then I see you, just standing there,
-Your quiet smile, your gentle stare.
-The clouds inside me start to fade,
-A little light begins to invade.
-
-Even a glance can shift my mood,
-Turn lonely silence into something good.
-A passing word, a fleeting grin,
-And suddenly I feel warmth within.
-
-The minutes stretch, the hallways slow,
-Yet time feels faster when I see you go.
-I catch your eyes in the crowded room,
-And all at once, the gray turns bloom.
-
-The day feels lighter, the halls less cold,
-Your presence bright, a sight to behold.
-I don’t need hours or grand displays,
-Just a spark from you to light my days.
-
-Even small moments, a shared glance,
-Make my heart skip, give it a chance.
-A scribbled note, a whispered “hi,”
-Can chase the storm clouds from the sky.
-
-Rain may fall, and skies may weep,
-My thoughts of you run soft and deep.
-Though life feels heavy, my heart confined,
-Seeing you makes the sun shine behind.
-
-The world goes on, the day drifts by,
-But your gentle light will never die.
-Even brief moments, though few and small,
-Bring me a warmth that outshines all.
-
-I leave the school, the hallways bare,
-Yet carry your light with me everywhere.
-Though the clouds return and skies grow gray,
-I’ll remember your sun throughout the day.
-
-You are the spark that breaks the gloom,
-The gentle warmth that fills the room.
-Even in sadness, when hope seems thin,
-You shine inside me, bright within.
-
-Some days may start with sorrow’s haze,
-Yet you arrive, my sun on rainy days.
-A quiet presence, soft and true,
-I feel the world is bright with you.`
-  },
-  // Placeholders for remaining poems
-  { title: "English Poem 3", content: "Content here..." },
-  { title: "English Poem 4", content: "Content here..." },
-  { title: "English Poem 5", content: "Content here..." },
-  { title: "English Poem 6", content: "Content here..." },
-  { title: "English Poem 7", content: "Content here..." },
-  { title: "English Poem 8", content: "Content here..." },
-  { title: "English Poem 9", content: "Content here..." },
-  { title: "English Poem 10", content: "Content here..." },
-  { title: "English Poem 11", content: "Content here..." },
-  { title: "English Poem 12", content: "Content here..." },
-  { title: "English Poem 13", content: "Content here..." },
-  { title: "English Poem 14", content: "Content here..." },
-  { title: "English Poem 15", content: "Content here..." },
-  { title: "Tagalog Poem 1", content: "Content here..." },
-  { title: "Tagalog Poem 2", content: "Content here..." },
-  { title: "Tagalog Poem 3", content: "Content here..." },
-  { title: "Tagalog Poem 4", content: "Content here..." },
-  { title: "Tagalog Poem 5", content: "Content here..." },
-  { title: "Tagalog Poem 6", content: "Content here..." },
-  { title: "Tagalog Poem 7", content: "Content here..." },
-  { title: "Tagalog Poem 8", content: "Content here..." },
-  { title: "Tagalog Poem 9", content: "Content here..." },
-  { title: "Tagalog Poem 10", content: "Content here..." },
-  { title: "Tagalog Poem 11", content: "Content here..." },
-  { title: "Tagalog Poem 12", content: "Content here..." },
-  { title: "Tagalog Poem 13", content: "Content here..." },
-  { title: "Tagalog Poem 14", content: "Content here..." },
-  { title: "Tagalog Poem 15", content: "Content here..." }
-];
-
-const container = document.getElementById('poemsContainer');
-
-poems.forEach((p, index) => {
-  const div = document.createElement('div');
-  div.classList.add('poem');
-  div.innerHTML = `<h3>${p.title}</h3>${p.content.replace(/\n/g, "<br>")}`;
-  container.appendChild(div);
-
-  // Fade + pop animation with stagger
-  setTimeout(() => div.classList.add('show'), index * 200);
-});
-
-function goBack() {
-  window.location.href = "letters.html";
-}
+  // Close modal if clicked outside content
+  window.addEventListener('click', (e) => {
+    if (e.target == modal) {
+      modal.style.display = 'none';
+    }
+  });
 </script>
 
 </body>
