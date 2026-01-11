@@ -1,220 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Letters I Didn't Give, Compiled</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff0f5;
-      color: #d6336c;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letters I Didn't Give, Compiled</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff0f5;
+    color: #d6336c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
 
-    .letter-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
+  .letter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
 
-    .letter-buttons button {
-      background: #ffb6c1;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      color: #fff;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+  .letter-buttons button {
+    background: #ffb6c1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+  }
 
-    .letter-buttons button:hover {
-      background: #ff69b4;
-    }
+  .letter-buttons button:hover {
+    background: #ff69b4;
+  }
 
-    .letter-content {
-      background: #ffe6f0;
-      padding: 20px;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 600px;
-      margin-bottom: 20px;
-      display: none;
-      white-space: pre-line;
-    }
+  .letter-content {
+    background: #ffe6f0;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    display: none;
+    white-space: pre-line;
+  }
 
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 600px;
-      margin-bottom: 20px;
-    }
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
 
-    .nav-buttons button {
-      background: #d6336c;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+  .nav-buttons button {
+    background: #d6336c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
 
-    .nav-buttons button:disabled {
-      background: #ffb6c1;
-      cursor: not-allowed;
-    }
+  .nav-buttons button:disabled {
+    background: #ffb6c1;
+    cursor: not-allowed;
+  }
 
-    .poems-link {
-      display: none; /* hidden until last letter read */
-      font-size: 18px;
-      font-weight: bold;
-      margin-top: 20px;
-    }
+  /* Floating circular Poems button */
+  #poemsBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #d6336c;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: not-allowed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+    transition: 0.3s;
+  }
 
-    .poems-link a {
-      text-decoration: none;
-      color: #d6336c;
-    }
+  #poemsBtn.unlocked {
+    cursor: pointer;
+    background: #ff69b4;
+  }
 
-    .poems-link a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  /* Poems overlay */
+  #poemsOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 182, 193, 0.95);
+    z-index: 999;
+    overflow: auto;
+    padding: 20px;
+  }
+
+  #poemsOverlay .closeBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    background: #d6336c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  #poemsOverlay h2 {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  #poemsOverlay p {
+    white-space: pre-line;
+    margin-bottom: 10px;
+  }
+
+  #unlockNote {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #888;
+  }
+</style>
 </head>
 <body>
-  <h1>Letters I Didn't Give, Compiled</h1>
+<h1>Letters I Didn't Give, Compiled</h1>
 
-  <div class="letter-buttons" id="letterButtons">
-    <!-- Buttons will be generated by JS -->
-  </div>
+<div class="letter-buttons" id="letterButtons"></div>
 
-  <div class="letter-content" id="letterContent">
-    <p id="letterText"></p>
-  </div>
+<div class="letter-content" id="letterContent">
+  <p id="letterText"></p>
+</div>
 
-  <div class="nav-buttons">
-    <button id="prevBtn" onclick="prevLetter()" disabled>Previous</button>
-    <button id="nextBtn" onclick="nextLetter()">Next</button>
-  </div>
+<div class="nav-buttons">
+  <button id="prevBtn" onclick="prevLetter()" disabled>Previous</button>
+  <button id="nextBtn" onclick="nextLetter()">Next</button>
+</div>
 
-  <div class="poems-link" id="poemsLink">
-    <a href="poems.html">➡ View Poems</a>
-  </div>
+<!-- Floating Poems button -->
+<button id="poemsBtn" onclick="openPoems()">Poems</button>
+<div id="unlockNote">Unlocks after reading the last letter (48th)</div>
 
-  <script>
-    // ----- PASTE YOUR 48 LETTERS HERE -----
-    const letters = [
-      "January 1, 2026\n\nLetter 1 content goes here...",
-      "January 2, 2026\n\nLetter 2 content goes here...",
-      "January 3, 2026\n\nLetter 3 content goes here...",
-      "January 4, 2026\n\nLetter 4 content goes here...",
-      "January 5, 2026\n\nLetter 5 content goes here...",
-      "January 6, 2026\n\nLetter 6 content goes here...",
-      "January 7, 2026\n\nLetter 7 content goes here...",
-      "January 8, 2026\n\nLetter 8 content goes here...",
-      "January 9, 2026\n\nLetter 9 content goes here...",
-      "January 10, 2026\n\nLetter 10 content goes here...",
-      "January 11, 2026\n\nLetter 11 content goes here...",
-      "January 12, 2026\n\nLetter 12 content goes here...",
-      "January 13, 2026\n\nLetter 13 content goes here...",
-      "January 14, 2026\n\nLetter 14 content goes here...",
-      "January 15, 2026\n\nLetter 15 content goes here...",
-      "January 16, 2026\n\nLetter 16 content goes here...",
-      "January 17, 2026\n\nLetter 17 content goes here...",
-      "January 18, 2026\n\nLetter 18 content goes here...",
-      "January 19, 2026\n\nLetter 19 content goes here...",
-      "January 20, 2026\n\nLetter 20 content goes here...",
-      "January 21, 2026\n\nLetter 21 content goes here...",
-      "January 22, 2026\n\nLetter 22 content goes here...",
-      "January 23, 2026\n\nLetter 23 content goes here...",
-      "January 24, 2026\n\nLetter 24 content goes here...",
-      "January 25, 2026\n\nLetter 25 content goes here...",
-      "January 26, 2026\n\nLetter 26 content goes here...",
-      "January 27, 2026\n\nLetter 27 content goes here...",
-      "January 28, 2026\n\nLetter 28 content goes here...",
-      "January 29, 2026\n\nLetter 29 content goes here...",
-      "January 30, 2026\n\nLetter 30 content goes here...",
-      "January 31, 2026\n\nLetter 31 content goes here...",
-      "February 1, 2026\n\nLetter 32 content goes here...",
-      "February 2, 2026\n\nLetter 33 content goes here...",
-      "February 3, 2026\n\nLetter 34 content goes here...",
-      "February 4, 2026\n\nLetter 35 content goes here...",
-      "February 5, 2026\n\nLetter 36 content goes here...",
-      "February 6, 2026\n\nLetter 37 content goes here...",
-      "February 7, 2026\n\nLetter 38 content goes here...",
-      "February 8, 2026\n\nLetter 39 content goes here...",
-      "February 9, 2026\n\nLetter 40 content goes here...",
-      "February 10, 2026\n\nLetter 41 content goes here...",
-      "February 11, 2026\n\nLetter 42 content goes here...",
-      "February 12, 2026\n\nLetter 43 content goes here...",
-      "February 13, 2026\n\nLetter 44 content goes here...",
-      "February 14, 2026\n\nLetter 45 content goes here...",
-      "February 15, 2026\n\nLetter 46 content goes here...",
-      "February 16, 2026\n\nLetter 47 content goes here...",
-      "February 17, 2026\n\nLetter 48 content goes here..."
-    ];
+<!-- Poems overlay -->
+<div id="poemsOverlay">
+  <button class="closeBtn" onclick="closePoems()">X</button>
+  <h2>Poems Section</h2>
+  <p>Here’s where your poems will appear. Add them later.</p>
+</div>
 
-    const letterButtonsDiv = document.getElementById("letterButtons");
-    const letterText = document.getElementById("letterText");
-    const letterContentDiv = document.getElementById("letterContent");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const poemsLink = document.getElementById("poemsLink");
+<script>
+  // Example letters array (replace with your actual letters)
+  const letters = [
+    "January 1, 2026\n\nLetter 1 content...",
+    "January 2, 2026\n\nLetter 2 content...",
+    // ... up to 48 letters
+    "February 17, 2026\n\nLetter 48 content..."
+  ];
 
-    let currentLetter = 0;
+  const letterButtonsDiv = document.getElementById("letterButtons");
+  const letterText = document.getElementById("letterText");
+  const letterContentDiv = document.getElementById("letterContent");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const poemsBtn = document.getElementById("poemsBtn");
 
-    // Generate letter buttons
-    letters.forEach((_, index) => {
-      const btn = document.createElement("button");
-      btn.innerText = `Letter #${index + 1}`;
-      btn.onclick = () => showLetter(index);
-      letterButtonsDiv.appendChild(btn);
-    });
+  let currentLetter = 0;
 
-    function showLetter(index) {
-      currentLetter = index;
-      letterText.innerText = letters[currentLetter];
-      letterContentDiv.style.display = "block";
-      updateNav();
-      letterContentDiv.scrollIntoView({ behavior: "smooth" });
+  // Generate letter buttons
+  letters.forEach((_, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = `Letter #${index + 1}`;
+    btn.onclick = () => showLetter(index);
+    letterButtonsDiv.appendChild(btn);
+  });
+
+  function showLetter(index) {
+    currentLetter = index;
+    letterText.innerText = letters[currentLetter];
+    letterContentDiv.style.display = "block";
+    updateNav();
+    letterContentDiv.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function nextLetter() {
+    if (currentLetter < letters.length - 1) {
+      currentLetter++;
+      showLetter(currentLetter);
     }
+  }
 
-    function nextLetter() {
-      if (currentLetter < letters.length - 1) {
-        currentLetter++;
-        showLetter(currentLetter);
-      }
+  function prevLetter() {
+    if (currentLetter > 0) {
+      currentLetter--;
+      showLetter(currentLetter);
     }
+  }
 
-    function prevLetter() {
-      if (currentLetter > 0) {
-        currentLetter--;
-        showLetter(currentLetter);
-      }
+  function updateNav() {
+    prevBtn.disabled = currentLetter === 0;
+    nextBtn.disabled = currentLetter === letters.length - 1;
+
+    // Unlock poems button only after last letter
+    if (currentLetter === letters.length - 1) {
+      poemsBtn.classList.add("unlocked");
+      poemsBtn.disabled = false;
     }
+  }
 
-    function updateNav() {
-      prevBtn.disabled = currentLetter === 0;
-      nextBtn.disabled = currentLetter === letters.length - 1;
-      poemsLink.style.display = currentLetter === letters.length - 1 ? "block" : "none";
-    }
+  function openPoems() {
+    if (!poemsBtn.classList.contains("unlocked")) return;
+    document.getElementById("poemsOverlay").style.display = "block";
+  }
 
-    // Initialize with first letter
-    showLetter(0);
-  </script>
+  function closePoems() {
+    document.getElementById("poemsOverlay").style.display = "none";
+  }
+
+  // Initialize first letter
+  showLetter(0);
+</script>
 </body>
 </html>
